@@ -2,6 +2,11 @@ import { defaultTheme } from '@vuepress/theme-default'
 import { defineUserConfig } from 'vuepress'
 import { viteBundler } from '@vuepress/bundler-vite'
 import { getDirname, path } from '@vuepress/utils'
+import { docsearchPlugin } from '@vuepress/plugin-docsearch'
+import { pwaPlugin } from '@vuepress/plugin-pwa'
+import { mediumZoomPlugin } from '@vuepress/plugin-medium-zoom'
+import { searchPlugin } from '@vuepress/plugin-search'
+import { registerComponentsPlugin } from '@vuepress/plugin-register-components'
 import fs from 'fs'
 
 // 动态获取当前目录
@@ -103,6 +108,13 @@ export default defineUserConfig({
     ['link', { rel: 'icon', href: '/images/logo.png' }],
     ['meta', { name: 'author', content: 'VuePress 团队' }],
     ['meta', { name: 'keywords', content: 'vuepress, vue, 文档, 博客' }],
+    ['meta', { name: 'theme-color', content: '#3eaf7c' }],
+    ['meta', { name: 'apple-mobile-web-app-capable', content: 'yes' }],
+    ['meta', { name: 'apple-mobile-web-app-status-bar-style', content: 'black' }],
+    ['link', { rel: 'apple-touch-icon', href: '/images/icons/apple-touch-icon.png' }],
+    ['link', { rel: 'mask-icon', href: '/images/icons/safari-pinned-tab.svg', color: '#3eaf7c' }],
+    ['meta', { name: 'msapplication-TileImage', content: '/images/icons/mstile-150x150.png' }],
+    ['meta', { name: 'msapplication-TileColor', content: '#3eaf7c' }],
   ],
 
   // Vite 打包工具配置
@@ -152,5 +164,138 @@ export default defineUserConfig({
     },
     links: { externalAttrs: { target: '_blank', rel: 'noopener noreferrer' } },
     toc: { includeLevel: [1, 2, 3] },
+    code: {
+      // 添加代码块行号
+      lineNumbers: true,
+      // 高亮显示当前行
+      highlightLines: true,
+      // 显示复制按钮
+      copyCode: {
+        selector: 'div[class*="language-"]',
+        successText: '已复制!',
+        failureText: '复制失败!'
+      }
+    },
   },
+
+  // 插件配置
+  plugins: [
+    // 组件自动注册插件
+    registerComponentsPlugin({
+      componentsDir: path.resolve(__dirname, './components'),
+    }),
+
+    // 图片缩放插件
+    mediumZoomPlugin({
+      // 选择器
+      selector: ':not(a) > img:not(.no-zoom)',
+      // 缩放选项
+      zoomOptions: {
+        margin: 16,
+        background: '#fff',
+        scrollOffset: 40,
+      },
+    }),
+
+    // PWA 插件
+    pwaPlugin({
+      // 是否注册Service Worker
+      skipWaiting: true,
+      // 缓存控制
+      cachePic: true,
+      // 刷新内容提示
+      popupComponent: 'PwaPopup',
+      // manifest.webmanifest
+      manifest: {
+        name: 'VuePress 文档模板',
+        short_name: 'VuePressDoc',
+        description: '基于 VuePress 的文档站点模板',
+        theme_color: '#3eaf7c',
+        background_color: '#ffffff',
+        icons: [
+          {
+            src: '/images/icons/android-chrome-192x192.png',
+            sizes: '192x192',
+            type: 'image/png',
+          },
+          {
+            src: '/images/icons/android-chrome-512x512.png',
+            sizes: '512x512',
+            type: 'image/png',
+          },
+        ],
+      },
+    }),
+
+    // 搜索插件配置 (内置搜索)
+    searchPlugin({
+      // 本地搜索选项
+      locales: {
+        '/': {
+          placeholder: '搜索文档',
+        },
+      },
+      // 搜索结果最大条目
+      maxSuggestions: 10,
+      // 仅匹配标题
+      getExtraFields: () => [],
+      // 显示搜索框热键提示
+      hotKeys: ['s', '/'],
+      // 搜索索引选项
+      isSearchable: (page) => page.path !== '/',
+    }),
+
+    // Algolia DocSearch 插件 (需要自行申请和配置)
+    // 注释掉了，如果需要使用取消注释并配置自己的appId、apiKey和indexName
+    /*
+    docsearchPlugin({
+      apiKey: '<API_KEY>',
+      indexName: '<INDEX_NAME>',
+      appId: '<APP_ID>',
+      locales: {
+        '/': {
+          placeholder: '搜索文档',
+          translations: {
+            button: {
+              buttonText: '搜索',
+              buttonAriaLabel: '搜索',
+            },
+            modal: {
+              searchBox: {
+                resetButtonTitle: '清除查询条件',
+                resetButtonAriaLabel: '清除查询条件',
+                cancelButtonText: '取消',
+                cancelButtonAriaLabel: '取消',
+              },
+              startScreen: {
+                recentSearchesTitle: '搜索历史',
+                noRecentSearchesText: '没有搜索历史',
+                saveRecentSearchButtonTitle: '保存至搜索历史',
+                removeRecentSearchButtonTitle: '从搜索历史中移除',
+                favoriteSearchesTitle: '收藏',
+                removeFavoriteSearchButtonTitle: '从收藏中移除',
+              },
+              errorScreen: {
+                titleText: '无法获取结果',
+                helpText: '你可能需要检查你的网络连接',
+              },
+              footer: {
+                selectText: '选择',
+                navigateText: '切换',
+                closeText: '关闭',
+                searchByText: '搜索提供者',
+              },
+              noResultsScreen: {
+                noResultsText: '无法找到相关结果',
+                suggestedQueryText: '你可以尝试查询',
+                reportMissingResultsText: '你认为该查询应该有结果？',
+                reportMissingResultsLinkText: '点击反馈',
+              },
+            },
+          },
+        },
+      },
+    }),
+    */
+  ],
 })
