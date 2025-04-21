@@ -1,3 +1,19 @@
+# 配置
+
+VuePress 站点的配置文件位于 `.vuepress/config.js`，它导出一个 JavaScript 对象，包含了站点的各种配置选项。
+
+## 配置指南
+
+本节包含了 VuePress 站点配置的详细信息：
+
+- [基本配置](./basic-config.md) - 站点名称、描述、语言等基本配置
+- [主题配置](./theme-config.md) - 导航栏、侧边栏、外观等主题配置
+
+## 配置示例
+
+以下是一个完整的配置示例：
+
+```js
 import { defaultTheme } from '@vuepress/theme-default'
 import { defineUserConfig } from 'vuepress'
 import { viteBundler } from '@vuepress/bundler-vite'
@@ -24,23 +40,11 @@ export default defineUserConfig({
     logo: '/images/logo.png',
     repo: 'https://github.com/yourusername/vuepress-template',
     docsDir: 'docs',
-
-    // 导航栏
     navbar: [
       { text: '首页', link: '/' },
       { text: '指南', link: '/guide/' },
       { text: '配置', link: '/config/' },
-      {
-        text: '参考',
-        children: [
-          { text: '快速上手', link: '/get-started' },
-          { text: 'API 参考', link: '/api/' },
-          { text: '常见问题', link: '/faq/' },
-        ],
-      },
     ],
-
-    // 侧边栏
     sidebar: {
       '/guide/': [
         {
@@ -62,35 +66,9 @@ export default defineUserConfig({
           ],
         },
       ],
-      '/api/': [
-        {
-          text: 'API 参考',
-          children: [
-            '/api/README.md',
-            '/api/cli.md',
-          ],
-        },
-      ],
     },
-
-    // 编辑链接
-    editLink: true,
-    editLinkText: '在 GitHub 上编辑此页',
-    lastUpdated: true,
-    lastUpdatedText: '上次更新',
-    contributors: true,
-    contributorsText: '贡献者',
-
-    // 自定义容器默认标题
-    tip: '提示',
-    warning: '注意',
-    danger: '警告',
-
-    // 404 页面
-    notFound: ['页面未找到'],
-    backToHome: '返回首页',
   }),
-
+  
   // Markdown 配置
   markdown: {
     anchor: { permalink: true, permalinkSymbol: '#' },
@@ -98,3 +76,8 @@ export default defineUserConfig({
     toc: { includeLevel: [1, 2, 3] },
   },
 })
+```
+
+## 参考链接
+
+- [VuePress 官方配置参考](https://v2.vuepress.vuejs.org/zh/reference/config.html) 
