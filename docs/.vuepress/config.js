@@ -60,13 +60,16 @@ function generateSidebar() {
         if (b === 'README.md') return 1
         return a.localeCompare(b)
       })
-      .map(file => `/${dir}/${file.replace('.md', '')}`)
+      .map(file => {
+        const name = file.replace('.md', '')
+        // 将 README.md 转换为目录路径
+        return name === 'README' ? `/${dir}/` : `/${dir}/${name}`
+      })
 
-    // 将 README.md 路径转换为目录路径
     sidebar[`/${dir}/`] = [
       {
         text,
-        children: files.map(file => file.endsWith('/README') ? file.replace('/README', '/') : file)
+        children: files
       }
     ]
   }
