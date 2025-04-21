@@ -1,0 +1,52 @@
+/**
+ * 全局自定义样式
+ */
+
+// 自定义容器样式
+.custom-container {
+  &.tip {
+    border-color: var(--c-brand);
+  }
+}
+
+// 自定义链接样式
+a.custom-link {
+  color: var(--c-brand);
+  text-decoration: none;
+  border-bottom: 1px dashed var(--c-brand);
+  transition: all 0.3s ease;
+
+  &:hover {
+    border-bottom: 1px solid var(--c-brand);
+  }
+}
+
+// 自定义表格样式
+table {
+  width: 100%;
+  display: table;
+  margin: 1rem 0;
+
+  tr {
+    border-top: 1px solid var(--c-border);
+
+    &:nth-child(2n) {
+      background-color: var(--c-bg-light);
+    }
+  }
+
+  th, td {
+    padding: 0.6em 1em;
+    border: 1px solid var(--c-border);
+  }
+}
+
+// 优化移动端显示
+@media (max-width: 419px) {
+  .theme-default-content {
+    div[class*='language-'] {
+      margin: 0.85rem -1.5rem;
+      border-radius: 0;
+    }
+  }
+}

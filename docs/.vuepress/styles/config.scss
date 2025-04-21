@@ -1,0 +1,14 @@
+/**
+ * 主题配置变量
+ * 用于覆盖默认主题的配置变量
+ */
+
+// 代码块样式
+$code-line-height: 1.5;             // 代码行高
+$code-font-size: 0.9em;             // 代码字体大小
+$code-font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;  // 代码字体
+
+// 内容布局
+$content-font-size: 16px;           // 内容字体大小
+$content-heading-font-weight: 500;  // 标题字体粗细
+$content-heading-font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;  // 标题字体
