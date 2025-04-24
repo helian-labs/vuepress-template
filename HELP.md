@@ -13,16 +13,11 @@
 - [Frontmatter](https://v2.vuepress.vuejs.org/zh/reference/frontmatter.html) - 页面元数据配置
 - [永久链接](https://v2.vuepress.vuejs.org/zh/guide/page.html#永久链接) - 自定义页面 URL
 - [国际化 (i18n)](https://v2.vuepress.vuejs.org/zh/guide/i18n.html) - 多语言站点配置
-- [搜索引擎优化 (SEO)](https://v2.vuepress.vuejs.org/zh/guide/seo.html) - 提升站点可发现性
-- [PWA (渐进式 Web 应用)](https://v2.vuepress.vuejs.org/zh/guide/pwa.html) - 让站点可离线访问
 
 ### Markdown 增强
 
 - [Markdown 扩展](https://v2.vuepress.vuejs.org/zh/guide/markdown.html) - VuePress 中的 Markdown 扩展功能
-- [内置 Markdown 组件](https://v2.vuepress.vuejs.org/zh/reference/components.html) - 可在 Markdown 中使用的 Vue 组件
-- [在 Markdown 中使用 Vue](https://v2.vuepress.vuejs.org/zh/guide/markdown.html#在-markdown-中使用-vue) - 嵌入交互式 Vue 组件
-- [导入代码段](https://v2.vuepress.vuejs.org/zh/guide/markdown.html#导入代码段) - 复用外部代码文件
-- [自定义容器](https://v2.vuepress.vuejs.org/zh/guide/markdown.html#自定义容器) - 创建类似 `::: tip` 的自定义块
+- [Markdown 教程](https://commonmark.org/help/)
 
 ## Vue 3 核心与生态
 
@@ -66,9 +61,6 @@
 ## VuePress 主题开发
 
 - [主题开发指南](https://v2.vuepress.vuejs.org/zh/advanced/theme.html) - 如何开发自己的主题
-- [默认主题配置参考](https://v2.vuepress.vuejs.org/zh/reference/default-theme/config.html) - 开发主题时可参考
-- [主题继承](https://v2.vuepress.vuejs.org/zh/advanced/theme.html#继承主题) - 扩展现有主题 (`theme.extends`)
-- [自定义布局](https://v2.vuepress.vuejs.org/zh/advanced/theme.html#布局) - 创建特定的页面布局组件
 - [常用主题列表](https://ecosystem.vuejs.press/zh/themes/default/) - 官方维护的主题列表
 
 ## VuePress 插件开发
@@ -78,8 +70,8 @@
 - [常用插件列表](https://ecosystem.vuejs.press/zh/plugins/) - 官方维护的插件列表
 - [社区插件](https://github.com/topics/vuepress-plugin) - GitHub 上的 VuePress 插件
 - **搜索集成**:
-  - [DocSearch](https://v2.vuepress.vuejs.org/zh/reference/plugin/docsearch.html) - 集成 Algolia DocSearch
-  - [Search Plugin](https://v2.vuepress.vuejs.org/zh/reference/plugin/search.html) - 内置的简单搜索插件
+  - [DocSearch](https://ecosystem.vuejs.press/zh/plugins/docsearch.html) - 集成 Algolia DocSearch
+  - [Search Plugin](https://ecosystem.vuejs.press/zh/plugins/search.html) - 内置的简单搜索插件
 
 ## 构建与部署
 
@@ -176,7 +168,6 @@
 - [Vue Mastery](https://www.vuemastery.com/) - 高质量 Vue 视频教程 (部分收费)
 - [Vue School](https://vueschool.io/) - 另一个 Vue 学习平台 (部分收费)
 - [Frontend Masters](https://frontendmasters.com/) - 包含 Vue 课程的进阶前端平台 (收费)
-- [官方示例](https://v2.vuepress.vuejs.org/zh/reference/official-plugins.html) - 学习官方插件的使用方式
 
 ### 社区与交流
 
