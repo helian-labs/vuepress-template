@@ -1,0 +1,24 @@
+# ESLint ignore patterns
+
+# Built files
+/dist
+/public
+/docs/.vuepress/.temp
+/docs/.vuepress/.cache
+
+# Node modules
+/node_modules
+
+# Coverage directory
+/coverage
+
+# Lock files
+pnpm-lock.yaml
+yarn.lock
+package-lock.json
+
+# Config files (specific ones if needed)
+# vite.config.ts
+
+# Generated files
+# *.generated.ts

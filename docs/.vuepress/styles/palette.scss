@@ -1,4 +1,13 @@
 /**
+ * 覆盖 VuePress 默认主题的调色板变量
+ * 参考: https://v2.vuepress.vuejs.org/zh/reference/default-theme/styles.html#调色板
+ */
+
+// 例如:
+// $accentColor: #345;
+// $textColor: #678;
+
+/**
  * 主题颜色变量
  * 用于覆盖默认主题的颜色变量
  */

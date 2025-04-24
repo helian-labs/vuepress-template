@@ -1,4 +1,18 @@
 /**
+ * SCSS 主入口文件
+ * 在这里导入其他 SCSS 文件
+ */
+
+// 导入变量
+@import 'variables';
+
+// 导入基础样式
+@import 'base';
+
+// 导入自定义全局样式
+@import 'custom';
+
+/**
  * 全局自定义样式
  */
 
