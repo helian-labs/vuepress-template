@@ -1,15 +1,41 @@
-# 依赖
+# === Dependencies ===
 node_modules/
-package-lock.json
-yarn.lock
-pnpm-lock.yaml
 
-# 构建输出
+# Lock files (handled by .gitattributes)
+# package-lock.json
+# yarn.lock
+# pnpm-lock.yaml
+
+# === Build Output ===
 docs/.vuepress/dist/
-.temp
-.cache
+docs/.vuepress/.temp/
+docs/.vuepress/.cache/
+dist/
 
-# 编辑器和系统文件
+# === Logs ===
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# === Runtime Data ===
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# === OS Generated Files ===
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# === Editor Directories and Files ===
 .idea/
 .vscode/
 *.suo
@@ -17,25 +43,27 @@ docs/.vuepress/dist/
 *.njsproj
 *.sln
 *.sw?
-.DS_Store
 
-# 日志文件
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-
-# 本地环境文件
+# === Environment Variables ===
+.env
 .env.local
 .env.*.local
-.env
+.env.development
+.env.production
 
-# 测试覆盖率
+# === Test & Coverage ===
 coverage/
+.nyc_output/
 
-# 临时文件
+# === Cache Files ===
+.npm
+.eslintcache
+.stylelintcache
+.cache
+
+# === Temporary Files ===
 tmp/
 temp/
 
-# 用户自定义配置
+# === User Specific ===
 user-config.js
