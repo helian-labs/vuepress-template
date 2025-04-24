@@ -1,0 +1,41 @@
+# Auto detect text files and perform LF normalization
+* text=auto eol=lf
+
+# Denote specific files as text
+*.js text
+*.css text
+*.html text
+*.vue text
+*.md text
+*.json text
+*.yaml text
+*.yml text
+*.sh text
+*.py text
+*.xml text
+*.svg text
+
+# Denote specific files as binary (preventing line ending normalization)
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.eot binary
+*.otf binary
+*.mp4 binary
+*.webm binary
+*.pdf binary
+*.zip binary
+*.gz binary
+*.rar binary
+*.mov binary
+*.avi binary
+
+# Keep package lock files unchanged, as their line endings can be important
+package-lock.json binary
+pnpm-lock.yaml binary
+yarn.lock binary

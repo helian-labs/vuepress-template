@@ -1,0 +1,13 @@
+# .github/ISSUE_TEMPLATE/config.yml
+
+# 是否允许创建完全空白的 Issue
+blank_issues_enabled: false
+
+# 在用户点击 "New issue" 时显示的外部链接
+contact_links:
+  - name: 📖 项目文档
+    url: https://YOUR_DOCUMENTATION_LINK # 请替换为您的文档链接
+    about: 请先查阅文档，您的问题可能已经有了答案。
+  - name: 💬 社区讨论/提问 (可选)
+    url: https://github.com/YOUR_ORG/YOUR_REPO/discussions # 请替换为您的仓库讨论区链接或社区链接
+    about: 对于一般性问题、想法讨论或寻求帮助，请使用讨论区。
