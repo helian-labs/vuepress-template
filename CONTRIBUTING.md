@@ -2,7 +2,7 @@
 
 感谢您考虑为此项目做出贡献！我们欢迎任何形式的贡献，无论是报告问题、提交功能请求、改进文档还是编写代码。
 
-为了确保社区的健康和协作，请遵守我们的 [行为准则](CODE_OF_CONDUCT.md)。 (如果还没有，请创建此文件)
+为了确保社区的健康和协作，请遵守我们的 [行为准则](CODE_OF_CONDUCT.md)。
 
 ## 如何贡献
 
@@ -62,7 +62,7 @@
 
 我们遵循 [Conventional Commits](https://www.conventionalcommits.org/) 规范。这有助于自动化版本发布和生成变更日志。提交信息格式如下：
 
-```
+```markdown
 <类型>[可选的作用域]: <描述>
 
 [可选的正文]
@@ -85,7 +85,7 @@
 
 **示例**:
 
-```
+```markdown
 feat: 添加暗黑模式切换功能
 fix(login): 修复密码验证逻辑错误
 docs: 更新 CONTRIBUTING.md
@@ -110,16 +110,10 @@ refactor: 重构用户认证模块
 # 安装依赖
 pnpm install
 
-# 启动开发服务器 (通常用于预览文档站点)
+# 启动开发服务器
 pnpm docs:dev
-
-# (如果项目有其他命令，例如构建、测试、linting，请在此处添加)
-# pnpm build
-# pnpm test
-# pnpm lint
-# pnpm format
 ```
 
 ## 许可证
 
-通过向本项目贡献代码或文档，您同意您的贡献将根据项目的 [LICENSE](LICENSE) 文件进行许可。(请确保仓库根目录有 LICENSE 文件)
+通过向本项目贡献代码或文档，您同意您的贡献将根据项目的 [LICENSE](LICENSE) 文件进行许可。
