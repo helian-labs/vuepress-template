@@ -1,9 +1,23 @@
 /**
- * 自定义 SCSS 变量
+ * 自定义全局 SCSS 变量
+ *
+ * 在这里定义你自己的变量，例如品牌颜色、字体大小等。
+ * 这些变量可以在其他 SCSS 文件（如 custom.scss）中使用。
+ *
+ * 注意：这些变量不会直接覆盖 VuePress 默认主题变量，
+ * 如需覆盖主题变量，请修改 palette.scss 文件。
  */
 
-// 字体大小
-// $font-size-base: 16px;
+// 示例：
 
-// 颜色
-// $primary-color: #007bff;
+// 品牌色
+// $brand-primary: #007bff;
+// $brand-secondary: #6c757d;
+
+// 字体大小
+// $font-size-sm: 0.875rem;
+// $font-size-base: 1rem;
+// $font-size-lg: 1.25rem;
+
+// 圆角
+// $border-radius: 0.25rem;

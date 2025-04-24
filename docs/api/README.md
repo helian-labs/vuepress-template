@@ -1,3 +1,7 @@
+---
+title: API 参考
+---
+
 # API 参考
 
 本节提供了 VuePress 各种 API 和工具的参考文档。

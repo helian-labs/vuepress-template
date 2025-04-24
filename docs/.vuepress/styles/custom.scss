@@ -1,8 +1,21 @@
 /**
- * 自定义全局样式
+ * 自定义全局样式规则
+ *
+ * 在这里添加你自己的全局 CSS/SCSS 规则。
+ * 这些规则会应用到整个站点。
+ *
+ * 你可以在这里使用在 variables.scss 中定义的变量。
  */
 
-// 可以在这里添加你的自定义 SCSS 规则
+// 示例：
+// // 自定义段落间距
+// p {
+//   margin-bottom: 1.2rem;
+// }
+
+// // 自定义某个特定类的样式
 // .my-custom-class {
-//   color: red;
+//   font-weight: bold;
+//   color: var(--c-brand); // 可以使用 VuePress 默认主题的 CSS 变量
+//   // color: $brand-primary; // 也可以使用 variables.scss 中定义的变量 (需确保已导入或使用 @use)
 // }

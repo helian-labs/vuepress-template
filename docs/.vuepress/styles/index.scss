@@ -1,16 +1,16 @@
 /**
  * SCSS 主入口文件
- * 在这里导入其他 SCSS 文件
+ * 使用 @use 替代 @import
  */
 
-// 导入变量
-@import 'variables';
+// 导入变量 (如果 variables.scss 定义了变量，需要使用命名空间或 as *)
+@use 'variables'; // 或者 @use 'variables' as *;
 
 // 导入基础样式
-@import 'base';
+@use 'base';
 
 // 导入自定义全局样式
-@import 'custom';
+@use 'custom';
 
 /**
  * 全局自定义样式

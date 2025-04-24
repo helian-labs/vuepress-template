@@ -1,3 +1,182 @@
+---
+title: 使用和创建组件
+---
+
+# 使用和创建组件
+
+VuePress 允许你在 Markdown 文件中直接使用 Vue 组件，这极大地增强了文档的表现力。本模板项目对组件的使用进行了约定，并提供了辅助脚本来简化组件创建。
+
+## 概述：组件系统
+
+本模板的组件系统基于以下特性：
+
+- **自动注册**: 使用 `@vuepress/plugin-register-components` 插件，放置在 `docs/.vuepress/components/` 目录下的 `.vue` 文件会被自动注册为全局组件。
+- **建议目录结构**: 为了更好地组织，建议将组件放入以下子目录：
+    *   `global/`: 放置在多个页面广泛使用的全局组件。
+    *   `layout/`: 放置与布局相关的组件。
+    *   `ui/`: 放置通用的 UI 元素，如按钮、卡片等。
+- **创建脚本**: 提供 `scripts/create-component.js` 脚本，通过 `pnpm run docs:component` 命令快速生成带有模板的新组件。
+
+## 使用组件
+
+已注册的组件可以直接在 Markdown 文件中使用，就像使用 HTML 标签一样。组件名称通常是其文件名（遵循 PascalCase 或 kebab-case）。
+
+**示例：使用内置 InfoCard 组件**
+
+本模板在 `docs/.vuepress/components/ui/InfoCard.vue` 提供了一个示例信息卡片组件。你可以这样使用它：
+
+```vue
+<InfoCard title="提示信息">
+这是卡片的内容。
+</InfoCard>
+
+<InfoCard title="警告信息" type="warning">
+请注意这里的潜在风险。
+</InfoCard>
+
+<InfoCard title="危险操作" type="danger">
+进行此操作前请务必备份数据。
+</InfoCard>
+
+<InfoCard title="小技巧" type="tip">
+你可以使用 `slot` 传递更复杂的 HTML 内容。
+</InfoCard>
+```
+
+**渲染效果:**
+
+<InfoCard title="提示信息">
+这是卡片的内容。
+</InfoCard>
+
+<InfoCard title="警告信息" type="warning">
+请注意这里的潜在风险。
+</InfoCard>
+
+<InfoCard title="危险操作" type="danger">
+进行此操作前请务必备份数据。
+</InfoCard>
+
+<InfoCard title="小技巧" type="tip">
+你可以使用 `slot` 传递更复杂的 HTML 内容。
+</InfoCard>
+
+## 创建新组件
+
+### 使用脚本 (推荐)
+
+推荐使用模板提供的脚本来创建新组件：
+
+```bash
+pnpm run docs:component
+# 或
+node scripts/create-component.js
+```
+
+脚本会引导你完成以下步骤：
+
+1.  **输入组件名称**: 使用 kebab-case 格式 (例如 `my-new-button`)。
+2.  **选择模板类型**: 从 `basic`, `functional`, `demo` 中选择。
+
+脚本会自动：
+
+-   将名称转换为 PascalCase (如 `MyNewButton`)。
+-   在 `docs/.vuepress/components/` 目录下创建对应的 `.vue` 文件 (例如 `MyNewButton.vue`)。
+-   使用选定的模板填充文件内容。
+
+#### 可用组件模板
+
+-   **基础 (basic)**: 简单的内容包装组件，支持标题和默认插槽。
+    ```vue
+    <template>
+      <div class="component-container">
+        <h2>{{ title }}</h2>
+        <div class="component-content">
+          <slot></slot>
+        </div>
+      </div>
+    </template>
+    ```
+    *使用示例*: `<MyBasicComponent title="基础信息">内容...</MyBasicComponent>`
+
+-   **功能性 (functional)**: 带有头部、主体、可选脚部插槽以及可选关闭按钮的组件。
+    ```vue
+    <template>
+      <div class="functional-component">
+        <div class="component-header">...</div>
+        <div class="component-body"><slot></slot></div>
+        <div v-if="$slots.footer" class="component-footer"><slot name="footer"></slot></div>
+      </div>
+    </template>
+    ```
+    *使用示例*: `<MyFunctionalComponent title="提示" :showClose="true">主体内容 <template #footer>页脚</template></MyFunctionalComponent>`
+
+-   **代码演示 (demo)**: 用于展示组件/代码示例及其对应代码，自带"显示/隐藏代码"切换。
+    ```vue
+    <template>
+      <div class="demo-component">
+        <div class="demo-header">... <button @click="...">...</button></div>
+        <div class="demo-preview"><slot></slot></div>
+        <div v-if="showCode" class="demo-code" :class="{ 'code-visible': codeVisible }">
+          <slot name="code"></slot>
+        </div>
+      </div>
+    </template>
+    ```
+    *使用示例*: `<MyDemoComponent title="示例"><MyButton/><template #code>\`\`\`html <MyButton/> \`\`\`</template></MyDemoComponent>`
+
+### 手动创建
+
+你也可以手动创建组件：
+
+1.  在 `docs/.vuepress/components/` 下的建议子目录（如 `ui/`）中创建你的 `.vue` 文件（例如 `MyCustomWidget.vue`）。
+2.  编写你的 Vue 组件逻辑。
+
+组件创建后，由于自动注册机制，你可以直接在 Markdown 中使用它 (`<MyCustomWidget />`)。
+
+### 在组件中访问 VuePress 数据
+
+在你的组件中，可以使用 `@vuepress/client` 提供的 Hooks 来访问站点或页面数据：
+
+```vue
+<script setup>
+import { usePageData, usePageFrontmatter, useSiteData } from '@vuepress/client'
+
+const pageData = usePageData()
+const frontmatter = usePageFrontmatter()
+const siteData = useSiteData()
+
+console.log('当前页面标题:', pageData.value.title)
+console.log('当前页面 Frontmatter:', frontmatter.value)
+console.log('站点标题:', siteData.value.title)
+</script>
+```
+
+更多可用的客户端 API，请参考 [VuePress 官方文档 > Client API](https://v2.vuepress.vuejs.org/zh/reference/client-api.html)。
+
+## 确保注册插件已启用
+
+为了让自动注册和组件能在 Markdown 中正常工作，请确保你的 `.vuepress/config.js` 文件中启用了 `@vuepress/plugin-register-components` 插件：
+
+```js
+// .vuepress/config.js
+import { registerComponentsPlugin } from '@vuepress/plugin-register-components'
+import { getDirname, path } from '@vuepress/utils'
+
+const __dirname = getDirname(import.meta.url)
+
+export default {
+  // ... 其他配置
+  plugins: [
+    registerComponentsPlugin({
+      // 指定组件目录
+      componentsDir: path.resolve(__dirname, './components'),
+    }),
+    // ... 其他插件
+  ],
+}
+```
+
 # 组件系统说明
 
 本文档模板提供了组件系统，允许您创建和使用自定义 Vue 组件来增强文档内容。

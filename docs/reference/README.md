@@ -1,3 +1,7 @@
+---
+title: 参考
+---
+
 # 配置
 
 VuePress 站点的配置文件位于 `.vuepress/config.js`，它导出一个 JavaScript 对象，包含了站点的各种配置选项。

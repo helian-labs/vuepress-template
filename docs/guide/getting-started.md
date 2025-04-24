@@ -135,52 +135,29 @@ pnpm docs:build
 
 构建完成后，`docs/.vuepress/dist` 目录下会生成静态文件，你可以将这些文件部署到任何静态网站托管服务，如 GitHub Pages、Netlify 或 Vercel。
 
-### GitHub Pages
+### 使用 GitHub Actions 自动部署到 GitHub Pages
 
-对于 GitHub Pages，你可以添加以下脚本到 `package.json`：
+本模板提供了一个预置的 GitHub Actions 工作流 (`.github/workflows/deploy.yml`)，可以在你将代码推送到主分支 (例如 `main`) 时自动构建和部署文档到 GitHub Pages。
 
-```json
-{
-  "scripts": {
-    "docs:deploy": "bash deploy.sh"
-  }
-}
-```
+要使其生效，你需要：
 
-然后创建一个 `deploy.sh` 文件：
+1.  **在 GitHub 仓库设置中启用 GitHub Pages**: 前往你的仓库 "Settings" -> "Pages"。
+2.  **选择部署源 (Source)**: 选择 "GitHub Actions"。
 
-```bash
-#!/usr/bin/env sh
+之后，每次推送到主分支，GitHub Actions 会自动运行 `deploy.yml` 工作流，完成构建和部署。
 
-# 确保脚本抛出遇到的错误
-set -e
+你可以在仓库的 "Actions" 标签页查看工作流的运行状态。
 
-# 生成静态文件
-npm run docs:build
-
-# 进入生成的文件夹
-cd docs/.vuepress/dist
-
-# 如果是发布到自定义域名
-# echo 'www.example.com' > CNAME
-
-git init
-git add -A
-git commit -m 'deploy'
-
-# 如果发布到 https://<USERNAME>.github.io
-# git push -f git@github.com:<USERNAME>/<USERNAME>.github.io.git master
-
-# 如果发布到 https://<USERNAME>.github.io/<REPO>
-git push -f git@github.com:<USERNAME>/<REPO>.git master:gh-pages
-
-cd -
-```
+::: tip 提示
+如果你需要部署到自定义域名，请在 `.vuepress/public` 目录下创建一个名为 `CNAME` 的文件，并将你的域名写入其中。
+:::
 
 ## 下一步
 
-现在你已经了解了 VuePress 的基本使用方法，可以继续探索更多高级功能：
+现在你已经了解了 VuePress 的基本使用方法，可以继续探索更多高级功能和模板特性：
 
-- [配置参考](/config/) - 了解 VuePress 的配置选项
-- [主题开发](/api/) - 学习如何开发自定义主题
-- [插件使用](/api/) - 探索 VuePress 的插件系统 
+- **配置**: 学习如何配置 [导航栏和侧边栏](./configuration.md) (页面待创建)。
+- **内容**: 了解如何 [添加新的文档页面](./adding-content.md) (页面待创建)，以及如何使用 [内容验证脚本](./content-validation.md)。
+- **组件**: 探索如何在 Markdown 中 [使用自定义组件](./components.md) 以及如何 [创建新组件](./components.md#创建新组件) (需要更新 components.md)。
+- **样式**: 学习如何 [自定义网站样式](./styling.md) (页面待创建)。
+- **VuePress**: 查阅官方 [VuePress 文档](https://v2.vuepress.vuejs.org/zh/) 获取更深入的信息。
