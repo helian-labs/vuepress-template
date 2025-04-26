@@ -21,7 +21,8 @@
     "validate:content": "node scripts/validate-content.js",
     "analyze:build": "node scripts/analyze-build.js",
     "validate": "pnpm validate:content",
-    "analyze": "pnpm analyze:build"
+    "analyze": "pnpm analyze:build",
+    "check:docs": "node scripts/check-docs.js"
   },
   "devDependencies": {
     "@types/node": "^18.19.87",
