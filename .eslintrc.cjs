@@ -22,23 +22,48 @@ module.exports = defineConfig({
     'eslint:recommended',
     'plugin:vue/vue3-recommended', // Vue 3 推荐规则
     'plugin:@typescript-eslint/recommended', // TypeScript 推荐规则
-    'prettier', // 使用 Prettier 接管格式化规则
+    'plugin:import/recommended',
+    'plugin:import/typescript',
+    'plugin:prettier/recommended',
   ],
   plugins: [
     'vue',
     '@typescript-eslint',
+    'import',
+    'prettier',
   ],
+  settings: {
+    'import/resolver': {
+      typescript: true,
+      node: true,
+    },
+    'import/parsers': {
+      '@typescript-eslint/parser': ['.ts', '.tsx'],
+    },
+  },
   rules: {
     // === ESLint Core Rules ===
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-unused-vars': 'off', // 由 @typescript-eslint/no-unused-vars 处理
     'prefer-const': 'warn',
+    'no-duplicate-imports': 'error',
+    'no-var': 'error',
 
     // === TypeScript Rules ===
-    '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }], // 未使用的变量警告（忽略下划线开头）
+    '@typescript-eslint/no-unused-vars': ['warn', {
+      argsIgnorePattern: '^_',
+      varsIgnorePattern: '^_',
+      caughtErrorsIgnorePattern: '^_',
+    }],
     '@typescript-eslint/no-explicit-any': 'warn', // 允许 any 但警告
-    '@typescript-eslint/ban-ts-comment': ['warn', { 'ts-ignore': 'allow-with-description' }], // 允许带描述的 @ts-ignore
+    '@typescript-eslint/ban-ts-comment': ['warn', {
+      'ts-ignore': 'allow-with-description',
+      'ts-expect-error': 'allow-with-description',
+    }],
+    '@typescript-eslint/explicit-function-return-type': 'off',
+    '@typescript-eslint/explicit-module-boundary-types': 'off',
+    '@typescript-eslint/no-non-null-assertion': 'warn',
 
     // === Vue Rules ===
     'vue/multi-word-component-names': 'off', // 在 .vuepress/components 中可能需要单文件组件
@@ -58,10 +83,32 @@ module.exports = defineConfig({
         math: 'always',
       },
     ],
+    'vue/component-name-in-template-casing': ['warn', 'PascalCase'],
+    'vue/component-definition-name-casing': ['warn', 'PascalCase'],
+    'vue/no-multiple-template-root': 'off',
+    'vue/no-v-model-argument': 'off',
 
-    // === Potential Problems / Best Practices (Customize as needed) ===
-    // 'eqeqeq': ['error', 'always', { null: 'ignore' }],
-    // 'no-implicit-coercion': 'error',
+    // === Import Rules ===
+    'import/order': ['warn', {
+      groups: [
+        'builtin',
+        'external',
+        'internal',
+        'parent',
+        'sibling',
+        'index',
+        'object',
+        'type',
+      ],
+      'newlines-between': 'always',
+      alphabetize: {
+        order: 'asc',
+        caseInsensitive: true,
+      },
+    }],
+    'import/no-unresolved': 'error',
+    'import/no-duplicates': 'error',
+    'import/no-cycle': 'error',
   },
   overrides: [
     {
@@ -77,10 +124,18 @@ module.exports = defineConfig({
         '*.config.ts',
         '*.config.js',
         '*.cjs',
+        '*.mjs',
       ],
       rules: {
         '@typescript-eslint/no-explicit-any': 'off',
         '@typescript-eslint/explicit-module-boundary-types': 'off',
+        'import/no-extraneous-dependencies': 'off',
+      },
+    },
+    {
+      files: ['*.vue'],
+      rules: {
+        'import/no-unresolved': 'off',
       },
     },
   ],
