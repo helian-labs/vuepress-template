@@ -5,17 +5,17 @@
  * 使用方法: node scripts/create-component.js
  */
 
-import fs from 'fs';
-import path from 'path';
-import readline from 'readline';
+import fs from 'fs'
+import path from 'path'
+import readline from 'readline'
 
 const rl = readline.createInterface({
   input: process.stdin,
-  output: process.stdout
-});
+  output: process.stdout,
+})
 
-const DOCS_DIR = path.resolve('docs');
-const COMPONENTS_DIR = path.join(DOCS_DIR, '.vuepress/components');
+const DOCS_DIR = path.resolve('docs')
+const COMPONENTS_DIR = path.join(DOCS_DIR, '.vuepress/components')
 
 // 组件模板
 const TEMPLATES = {
@@ -220,15 +220,15 @@ export default {
   background-color: var(--c-brand-light);
 }
 </style>
-`
-};
+`,
+}
 
 /**
  * 确保目录存在
  */
 function ensureDirectoryExists(dir) {
   if (!fs.existsSync(dir)) {
-    fs.mkdirSync(dir, { recursive: true });
+    fs.mkdirSync(dir, { recursive: true })
   }
 }
 
@@ -240,74 +240,74 @@ function toPascalCase(kebabCase) {
   return kebabCase
     .split('-')
     .map(part => part.charAt(0).toUpperCase() + part.slice(1))
-    .join('');
+    .join('')
 }
 
 /**
  * 创建新组件
  */
 async function createNewComponent() {
-  console.log('✨ 创建新的Vue组件');
+  console.log('✨ 创建新的Vue组件')
 
   // 确保组件目录存在
-  ensureDirectoryExists(COMPONENTS_DIR);
+  ensureDirectoryExists(COMPONENTS_DIR)
 
   // 1. 输入组件名称
-  const componentName = await new Promise((resolve) => {
-    rl.question('输入组件名称 (使用kebab-case, 如 info-box): ', (answer) => {
-      const name = answer.trim().toLowerCase();
+  const componentName = await new Promise(resolve => {
+    rl.question('输入组件名称 (使用kebab-case, 如 info-box): ', answer => {
+      const name = answer.trim().toLowerCase()
       if (!name || !name.match(/^[a-z0-9]+(-[a-z0-9]+)*$/)) {
-        console.log('无效的组件名称。请使用kebab-case格式 (如 info-box)');
-        process.exit(1);
+        console.log('无效的组件名称。请使用kebab-case格式 (如 info-box)')
+        process.exit(1)
       }
-      resolve(name);
-    });
-  });
+      resolve(name)
+    })
+  })
 
   // 转换为PascalCase (Vue组件标准命名)
-  const pascalCaseName = toPascalCase(componentName);
+  const pascalCaseName = toPascalCase(componentName)
 
   // 2. 选择模板类型
-  const templateType = await new Promise((resolve) => {
-    const choices = Object.keys(TEMPLATES);
-    rl.question(`选择组件模板类型 (${choices.join('/')}): `, (answer) => {
-      const type = answer.trim().toLowerCase();
+  const templateType = await new Promise(resolve => {
+    const choices = Object.keys(TEMPLATES)
+    rl.question(`选择组件模板类型 (${choices.join('/')}): `, answer => {
+      const type = answer.trim().toLowerCase()
       if (!choices.includes(type)) {
-        console.log(`无效的模板类型。请选择: ${choices.join(', ')}`);
-        process.exit(1);
+        console.log(`无效的模板类型。请选择: ${choices.join(', ')}`)
+        process.exit(1)
       }
-      resolve(type);
-    });
-  });
+      resolve(type)
+    })
+  })
 
   // 构建文件路径
-  const filePath = path.join(COMPONENTS_DIR, `${pascalCaseName}.vue`);
+  const filePath = path.join(COMPONENTS_DIR, `${pascalCaseName}.vue`)
 
   // 检查文件是否已存在
   if (fs.existsSync(filePath)) {
-    const overwrite = await new Promise((resolve) => {
-      rl.question('组件已存在，是否覆盖? (y/n): ', (answer) => {
-        resolve(answer.trim().toLowerCase() === 'y');
-      });
-    });
+    const overwrite = await new Promise(resolve => {
+      rl.question('组件已存在，是否覆盖? (y/n): ', answer => {
+        resolve(answer.trim().toLowerCase() === 'y')
+      })
+    })
 
     if (!overwrite) {
-      console.log('操作已取消');
-      rl.close();
-      return;
+      console.log('操作已取消')
+      rl.close()
+      return
     }
   }
 
   // 处理模板内容
-  let content = TEMPLATES[templateType];
-  content = content.replace(/\$ComponentName/g, pascalCaseName);
+  let content = TEMPLATES[templateType]
+  content = content.replace(/\$ComponentName/g, pascalCaseName)
 
   // 写入文件
-  fs.writeFileSync(filePath, content);
-  console.log(`✅ 成功创建组件: ${filePath}`);
+  fs.writeFileSync(filePath, content)
+  console.log(`✅ 成功创建组件: ${filePath}`)
 
   // 提示如何注册组件
-  console.log('\n要使用此组件，请确保在 .vuepress/config.js 中注册它:');
+  console.log('\n要使用此组件，请确保在 .vuepress/config.js 中注册它:')
   console.log(`
 在 config.js 文件中找到 plugins 配置，添加或更新 register-components 插件:
 
@@ -330,13 +330,13 @@ export default {
 <${pascalCaseName} title="自定义标题">
   组件内容
 </${pascalCaseName}>
-`);
+`)
 
-  rl.close();
+  rl.close()
 }
 
 // 启动流程
 createNewComponent().catch(err => {
-  console.error('发生错误:', err);
-  process.exit(1);
-});
+  console.error('发生错误:', err)
+  process.exit(1)
+})

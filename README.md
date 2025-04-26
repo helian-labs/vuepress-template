@@ -7,28 +7,28 @@
 
 ## ✨ 特性
 
-*   **最新技术栈**: 使用 VuePress 2 (Vite Bundler), Vue 3, TypeScript, SCSS。
-*   **自动化配置**: 动态生成导航栏和侧边栏 (基于 `docs` 目录结构)。
-*   **模块化配置**: 将 VuePress 配置拆分为多个逻辑模块，易于维护。
-*   **代码质量**: 集成 ESLint 和 Prettier，确保代码规范。
-*   **结构化样式**: 使用 SCSS 并组织在清晰的目录结构中。
-*   **TypeScript 支持**: 核心配置文件和客户端增强文件使用 TypeScript。
-*   **实用脚本**: 包含创建新页面、组件等辅助脚本。
-*   **CI/CD 友好**: 提供基础的 GitHub Actions 工作流配置（即将添加）。
+- **最新技术栈**: 使用 VuePress 2 (Vite Bundler), Vue 3, TypeScript, SCSS。
+- **自动化配置**: 动态生成导航栏和侧边栏 (基于 `docs` 目录结构)。
+- **模块化配置**: 将 VuePress 配置拆分为多个逻辑模块，易于维护。
+- **代码质量**: 集成 ESLint 和 Prettier，确保代码规范。
+- **结构化样式**: 使用 SCSS 并组织在清晰的目录结构中。
+- **TypeScript 支持**: 核心配置文件和客户端增强文件使用 TypeScript。
+- **实用脚本**: 包含创建新页面、组件等辅助脚本。
+- **CI/CD 友好**: 提供基础的 GitHub Actions 工作流配置（即将添加）。
 
 ## 🚀 快速开始
 
 ### 环境要求
 
-*   Node.js >= 18.0.0
-*   pnpm >= 8.0.0 (推荐)
+- Node.js >= 18.0.0
+- pnpm >= 8.0.0 (推荐)
 
 ### 使用模板
 
-1.  **创建项目**: 使用此模板创建你自己的仓库（点击 "Use this template" 按钮）。
-2.  **克隆仓库**: `git clone https://github.com/yourusername/your-new-repo.git`
-3.  **进入目录**: `cd your-new-repo`
-4.  **安装依赖**: `pnpm install`
+1. **创建项目**: 使用此模板创建你自己的仓库（点击 "Use this template" 按钮）。
+2. **克隆仓库**: `git clone https://github.com/yourusername/your-new-repo.git`
+3. **进入目录**: `cd your-new-repo`
+4. **安装依赖**: `pnpm install`
 
 ### 本地开发
 
@@ -61,26 +61,26 @@ pnpm docs:build
 
 ## 🔧 如何使用此模板
 
-1.  **修改项目信息**: 更新 `package.json` 中的 `name`, `description`, `repository`, `author` 等字段。
-2.  **自定义站点配置**: 
-    *   修改 `docs/.vuepress/config.ts` 中的 `title`, `description`, `lang`。
-    *   修改 `docs/.vuepress/config/head.ts` 添加或修改 `<head>` 标签。
-    *   将 `docs/.vuepress/public/images/logo.png` 替换为你的 Logo。
-3.  **调整主题样式**: 
-    *   修改 `docs/.vuepress/styles/palette.scss` 覆盖默认主题颜色。
-    *   在 `docs/.vuepress/styles/variables.scss` 定义你的 SCSS 变量。
-    *   在 `docs/.vuepress/styles/custom.scss` 添加自定义全局样式。
-4.  **开始编写文档**: 
-    *   在 `docs/` 目录下按逻辑创建或修改 Markdown 文件和子目录（如 `guide`, `reference` 等）。
-    *   导航栏和侧边栏将根据这些目录自动更新（查看 `docs/.vuepress/config/navbar/zh.ts` 和 `sidebar/zh.ts` 中的逻辑）。
-    *   使用 frontmatter (如 `title`, `description`) 优化页面元信息。
-5.  **添加自定义组件**: 
-    *   将全局 Vue 组件放入 `docs/.vuepress/components/global/`。
-    *   将特定布局组件放入 `docs/.vuepress/components/layout/`。
-    *   将通用 UI 组件放入 `docs/.vuepress/components/ui/`。
-    *   `registerComponentsPlugin` 会自动注册这些组件。
-6.  **配置插件**: 在 `docs/.vuepress/config/plugins.ts` 中添加、删除或配置插件。
-7.  **更新部署脚本/CI**: 修改 `.github/workflows/deploy.yml` (即将添加) 或 `deploy.sh` (如果使用) 以适应你的部署目标。
+1. **修改项目信息**: 更新 `package.json` 中的 `name`, `description`, `repository`, `author` 等字段。
+2. **自定义站点配置**:
+   - 修改 `docs/.vuepress/config.ts` 中的 `title`, `description`, `lang`。
+   - 修改 `docs/.vuepress/config/head.ts` 添加或修改 `<head>` 标签。
+   - 将 `docs/.vuepress/public/images/logo.png` 替换为你的 Logo。
+3. **调整主题样式**:
+   - 修改 `docs/.vuepress/styles/palette.scss` 覆盖默认主题颜色。
+   - 在 `docs/.vuepress/styles/variables.scss` 定义你的 SCSS 变量。
+   - 在 `docs/.vuepress/styles/custom.scss` 添加自定义全局样式。
+4. **开始编写文档**:
+   - 在 `docs/` 目录下按逻辑创建或修改 Markdown 文件和子目录（如 `guide`, `reference` 等）。
+   - 导航栏和侧边栏将根据这些目录自动更新（查看 `docs/.vuepress/config/navbar/zh.ts` 和 `sidebar/zh.ts` 中的逻辑）。
+   - 使用 frontmatter (如 `title`, `description`) 优化页面元信息。
+5. **添加自定义组件**:
+   - 将全局 Vue 组件放入 `docs/.vuepress/components/global/`。
+   - 将特定布局组件放入 `docs/.vuepress/components/layout/`。
+   - 将通用 UI 组件放入 `docs/.vuepress/components/ui/`。
+   - `registerComponentsPlugin` 会自动注册这些组件。
+6. **配置插件**: 在 `docs/.vuepress/config/plugins.ts` 中添加、删除或配置插件。
+7. **更新部署脚本/CI**: 修改 `.github/workflows/deploy.yml` (即将添加) 或 `deploy.sh` (如果使用) 以适应你的部署目标。
 
 ## 项目结构
 
@@ -123,4 +123,4 @@ pnpm docs:build
 
 ## 📄 许可证
 
-本项目基于 [MIT](LICENSE) 许可证。 
+本项目基于 [MIT](LICENSE) 许可证。

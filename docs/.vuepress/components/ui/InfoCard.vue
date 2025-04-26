@@ -16,7 +16,7 @@ defineProps({
   type: {
     type: String,
     default: 'info', // 'info', 'tip', 'warning', 'danger'
-    validator: (value) => ['info', 'tip', 'warning', 'danger'].includes(value),
+    validator: value => ['info', 'tip', 'warning', 'danger'].includes(value),
   },
 })
 </script>

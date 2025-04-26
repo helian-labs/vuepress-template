@@ -9,12 +9,12 @@ export default defineClientConfig({
     // 应用增强
 
     // 路由钩子
-    router.beforeEach((to) => {
+    router.beforeEach(to => {
       // 路由跳转前执行
       console.log('页面切换:', to.path)
     })
 
-    router.afterEach((to) => {
+    router.afterEach(to => {
       // 路由跳转后执行
     })
   },

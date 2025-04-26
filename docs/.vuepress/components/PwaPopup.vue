@@ -3,7 +3,10 @@
     <div
       v-if="isShow"
       class="pwa-popup"
-      :class="{ 'bottom': popupConfig.position === 'bottom', 'right': popupConfig.position === 'right' }"
+      :class="{
+        bottom: popupConfig.position === 'bottom',
+        right: popupConfig.position === 'right',
+      }"
       role="alertdialog"
       aria-labelledby="pwa-popup-title"
     >
@@ -37,7 +40,7 @@ export default {
         buttonText: '更新',
         closeButtonText: '关闭',
         position: 'bottom', // 'bottom' | 'right'
-      }
+      },
     }
   },
   mounted() {
@@ -72,8 +75,8 @@ export default {
 
     close() {
       this.isShow = false
-    }
-  }
+    },
+  },
 }
 </script>
 

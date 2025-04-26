@@ -78,7 +78,7 @@ export const plugins: PluginConfig = [
       },
     },
     maxSuggestions: 10, // 最大建议数量
-    isSearchable: (page) => page.path !== '/', // 排除首页不被搜索
+    isSearchable: page => page.path !== '/', // 排除首页不被搜索
     // getExtraFields: (page) => [], // 额外搜索字段
     // hotKeys: ['s', '/'], // 激活搜索框的热键
   }),

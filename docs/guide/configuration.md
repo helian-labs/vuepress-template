@@ -1,3 +1,7 @@
+---
+title: 配置
+---
+
 # 配置导航栏和侧边栏
 
 VuePress 站点的导航栏和侧边栏主要通过 `.vuepress/config.js` 文件中的 `themeConfig` 对象进行配置。本模板使用了 `@vuepress/theme-default`，其配置方式如下。
@@ -15,10 +19,10 @@ export default {
     navbar: [
       // 简单的链接项
       { text: '首页', link: '/' },
-      
+
       // 指向指南目录的链接项
       { text: '指南', link: '/guide/' },
-      
+
       // 嵌套的下拉菜单
       {
         text: 'API文档',
@@ -29,36 +33,35 @@ export default {
             text: '相关链接',
             children: [
               { text: 'GitHub', link: 'https://github.com' },
-              { text: 'VuePress', link: 'https://v2.vuepress.vuejs.org/' }
-            ]
-          }
-        ]
+              { text: 'VuePress', link: 'https://v2.vuepress.vuejs.org/' },
+            ],
+          },
+        ],
       },
-      
+
       // 使用分组的嵌套下拉菜单
       {
         text: '配置项',
         children: [
           {
             text: '基础配置',
-            children: [
-              '/config/basic.md',
-              '/config/theme.md'
-            ]
+            children: ['/config/basic.md', '/config/theme.md'],
           },
           {
             text: '高级配置',
-            children: [
-              '/config/advanced.md'
-            ]
-          }
-        ]
+            children: ['/config/advanced.md'],
+          },
+        ],
       },
-      
+
       // 外部链接
-      { text: '模板仓库', link: 'https://github.com/yourusername/vuepress-template', target:'_blank' }
-    ]
-  })
+      {
+        text: '模板仓库',
+        link: 'https://github.com/vuepress/vuepress-next',
+        target: '_blank',
+      },
+    ],
+  }),
 }
 ```
 
@@ -90,8 +93,8 @@ export default {
       '/guide/README.md',
       '/guide/getting-started.md',
       '/guide/configuration.md',
-    ]
-  })
+    ],
+  }),
 }
 ```
 
@@ -108,46 +111,40 @@ export default {
       '/guide/': [
         // 简单链接
         '/guide/README.md',
-        
+
         // 分组
         {
           text: '基础',
           collapsible: true, // 是否可折叠
-          children: [
-            '/guide/getting-started.md',
-            '/guide/configuration.md'
-          ]
+          children: ['/guide/getting-started.md', '/guide/configuration.md'],
         },
         {
           text: '进阶',
           collapsible: false,
           children: [
-            '/guide/adding-content.md', // 待创建
+            '/guide/adding-content.md',
             '/guide/components.md',
-            '/guide/styling.md' // 待创建
-          ]
-        }
+            '/guide/styling.md',
+          ],
+        },
       ],
-      
+
       // /api/ 路径下的侧边栏
       '/api/': [
         {
           text: 'API 文档',
-          children: [
-            '/api/v1/README.md',
-            '/api/v2/README.md'
-          ]
-        }
+          children: ['/api/v1/README.md', '/api/v2/README.md'],
+        },
       ],
-      
+
       // fallback: 如果其他路径都没有匹配，则使用根路径的侧边栏
       '/': [
         '', // README.md
         'contact.md',
-        'about.md'
-      ]
-    }
-  })
+        'about.md',
+      ],
+    },
+  }),
 }
 ```
 
@@ -157,10 +154,10 @@ export default {
 
 - **字符串**: 一个指向 Markdown 文件的相对路径。文本将是页面的第一个 H1 或 `title` (来自 Frontmatter)。
 - **对象**: 用于创建分组或自定义链接。
-    - `text`: 分组或链接的文本。
-    - `link` (可选): 如果提供，则该项是一个可点击的链接。
-    - `collapsible` (可选, 默认为 `true`): 分组是否可折叠。
-    - `children`: 一个包含其他侧边栏项的数组 (字符串或对象)，用于创建嵌套分组。
+  - `text`: 分组或链接的文本。
+  - `link` (可选): 如果提供，则该项是一个可点击的链接。
+  - `collapsible` (可选, 默认为 `true`): 分组是否可折叠。
+  - `children`: 一个包含其他侧边栏项的数组 (字符串或对象)，用于创建嵌套分组。
 
 ### 自动侧边栏
 
@@ -174,9 +171,9 @@ export default {
     // sidebar: 'auto', // 不推荐，通常需要更精细的控制
     // 或者为特定路径启用
     sidebar: {
-      '/reference/': 'auto'
-    }
-  })
+      '/reference/': 'auto',
+    },
+  }),
 }
 ```
 
@@ -189,4 +186,4 @@ export default {
 - 当用户点击导航栏切换到 `/guide/` 时，会显示 `/guide/` 对应的侧边栏。
 - 当用户点击导航栏切换到 `/api/` 时，会显示 `/api/` 对应的侧边栏。
 
-确保你的 `sidebar` 配置的 key (如 `/guide/`, `/api/`) 与 `navbar` 中的 `link` 或 `activeMatch` 能够对应起来。 
+确保你的 `sidebar` 配置的 key (如 `/guide/`, `/api/`) 与 `navbar` 中的 `link` 或 `activeMatch` 能够对应起来。

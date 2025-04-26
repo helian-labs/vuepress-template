@@ -34,4 +34,4 @@ VuePress 是一个以 Markdown 为中心的静态网站生成器。它的设计�
 - [介绍](./introduction.md)
 - [快速上手](./getting-started.md)
 
-如需更多帮助，请参阅 [VuePress 官方文档](https://v2.vuepress.vuejs.org/zh/) 
+如需更多帮助，请参阅 [VuePress 官方文档](https://v2.vuepress.vuejs.org/zh/)

@@ -1,3 +1,7 @@
+---
+title: 快速上手
+---
+
 # 快速上手
 
 本指南将帮助你从头开始构建一个简单的 VuePress 网站。如果你已经有了现成的项目并希望将 VuePress 集成进去，请移步[指南](./README.md)。
@@ -34,7 +38,7 @@ pnpm install
 pnpm docs:dev
 ```
 
-VuePress 开发服务器将在 [http://localhost:8080](http://localhost:8080) 启动。
+VuePress 开发服务器将在 `localhost:8080` 启动。
 
 ## 项目结构
 
@@ -67,7 +71,7 @@ export default defineUserConfig({
   lang: 'zh-CN',
   title: '我的文档站点',
   description: '这是我的第一个 VuePress 站点',
-  
+
   // 主题配置
   theme: defaultTheme({
     logo: '/images/logo.png',
@@ -95,7 +99,7 @@ export default defineUserConfig({
 
 VuePress 以 Markdown 为中心，所有内容都是由 Markdown 文件生成的。下面是一个示例页面：
 
-```md
+````md
 ---
 title: 我的第一篇文章
 ---
@@ -109,6 +113,7 @@ VuePress 使用 Markdown 增强语法提供了许多有用的特性。
 ```js
 console.log('Hello, VuePress!')
 ```
+````
 
 ## 提示容器
 
@@ -123,7 +128,8 @@ console.log('Hello, VuePress!')
 ::: danger 警告
 这是一个危险警告
 :::
-```
+
+````
 
 ## 部署
 
@@ -131,7 +137,7 @@ console.log('Hello, VuePress!')
 
 ```bash
 pnpm docs:build
-```
+````
 
 构建完成后，`docs/.vuepress/dist` 目录下会生成静态文件，你可以将这些文件部署到任何静态网站托管服务，如 GitHub Pages、Netlify 或 Vercel。
 
@@ -141,8 +147,8 @@ pnpm docs:build
 
 要使其生效，你需要：
 
-1.  **在 GitHub 仓库设置中启用 GitHub Pages**: 前往你的仓库 "Settings" -> "Pages"。
-2.  **选择部署源 (Source)**: 选择 "GitHub Actions"。
+1. **在 GitHub 仓库设置中启用 GitHub Pages**: 前往你的仓库 "Settings" -> "Pages"。
+2. **选择部署源 (Source)**: 选择 "GitHub Actions"。
 
 之后，每次推送到主分支，GitHub Actions 会自动运行 `deploy.yml` 工作流，完成构建和部署。
 

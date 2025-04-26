@@ -17,9 +17,25 @@ export const head: HeadConfig[] = [
   ['meta', { name: 'theme-color', content: '#3eaf7c' }], // 主题色
   ['meta', { name: 'apple-mobile-web-app-capable', content: 'yes' }], // iOS Safari 全屏
   ['meta', { name: 'apple-mobile-web-app-status-bar-style', content: 'black' }], // iOS Safari 状态栏样式
-  ['link', { rel: 'apple-touch-icon', href: '/images/icons/apple-touch-icon.png' }], // Apple Touch Icon
-  ['link', { rel: 'mask-icon', href: '/images/icons/safari-pinned-tab.svg', color: '#3eaf7c' }], // Safari Pinned Tab Icon
-  ['meta', { name: 'msapplication-TileImage', content: '/images/icons/mstile-150x150.png' }], // Windows Tile Icon
+  [
+    'link',
+    { rel: 'apple-touch-icon', href: '/images/icons/apple-touch-icon.png' },
+  ], // Apple Touch Icon
+  [
+    'link',
+    {
+      rel: 'mask-icon',
+      href: '/images/icons/safari-pinned-tab.svg',
+      color: '#3eaf7c',
+    },
+  ], // Safari Pinned Tab Icon
+  [
+    'meta',
+    {
+      name: 'msapplication-TileImage',
+      content: '/images/icons/mstile-150x150.png',
+    },
+  ], // Windows Tile Icon
   ['meta', { name: 'msapplication-TileColor', content: '#3eaf7c' }], // Windows Tile 背景色
 
   // 添加其他需要的 <head> 标签，例如 Google Analytics 等

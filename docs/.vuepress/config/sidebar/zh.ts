@@ -13,7 +13,7 @@ function formatFilenameAsTitle(filename: string): string {
   return filename
     .split(/[-_]/) // 按连字符或下划线分割
     .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()) // 首字母大写，其余小写
-    .join(' ');
+    .join(' ')
 }
 
 /**
@@ -32,10 +32,10 @@ function generateZhSidebar(): any {
   // 定义要生成侧边栏的目录及其对应的分组标题
   // key 是目录名 (相对于 docs 目录)，value 是侧边栏分组显示的文本
   const dirMap: Record<string, string> = {
-    'guide': '指南',
-    'reference': '参考',
-    'api': 'API 参考',
-    'faq': '常见问题'
+    guide: '指南',
+    reference: '参考',
+    api: 'API 参考',
+    faq: '常见问题',
   }
 
   // 遍历 dirMap，为每个存在的目录生成侧边栏配置
@@ -45,7 +45,8 @@ function generateZhSidebar(): any {
     if (!fs.existsSync(dirPath)) continue
 
     // 读取目录下所有 Markdown 文件 (排除 README.md)
-    const files = fs.readdirSync(dirPath)
+    const files = fs
+      .readdirSync(dirPath)
       .filter(file => file.endsWith('.md') && file !== 'README.md')
       .sort((a, b) => a.localeCompare(b)) // 按字母顺序排序
       .map(file => {
@@ -53,14 +54,14 @@ function generateZhSidebar(): any {
         // 将文件名转换为对象格式 { text: '标题', link: '/路径/文件名' }
         return {
           text: formatFilenameAsTitle(name), // 使用辅助函数生成标题
-          link: `/${dir}/${name}`
+          link: `/${dir}/${name}`,
         }
       })
 
     // 创建侧边栏子项数组，将 README.md 对应的链接放在首位
     const children = [
       { text: '概述', link: `/${dir}/` }, // README.md 链接 (文本可自定义)
-      ...files // 其他 Markdown 文件链接对象
+      ...files, // 其他 Markdown 文件链接对象
     ]
 
     // 为当前目录路径设置侧边栏配置
@@ -68,8 +69,8 @@ function generateZhSidebar(): any {
       {
         text, // 分组标题 (来自 dirMap)
         collapsible: true, // 允许折叠
-        children // 子项数组
-      }
+        children, // 子项数组
+      },
     ]
   }
 

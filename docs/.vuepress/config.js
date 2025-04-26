@@ -14,16 +14,14 @@ const __dirname = getDirname(import.meta.url)
 
 // 动态检测导航菜单
 function generateNavbar() {
-  const navbar = [
-    { text: '首页', link: '/' }
-  ]
+  const navbar = [{ text: '首页', link: '/' }]
 
   // 检查各主要目录是否存在
   const dirMap = {
-    'guide': '指南',
-    'config': '配置',
-    'api': 'API参考',
-    'faq': '常见问题'
+    guide: '指南',
+    config: '配置',
+    api: 'API参考',
+    faq: '常见问题',
   }
 
   for (const [dir, text] of Object.entries(dirMap)) {
@@ -42,17 +40,18 @@ function generateSidebar() {
 
   // 检查各主要目录并生成侧边栏配置
   const dirMap = {
-    'guide': '指南',
-    'config': '配置',
-    'api': 'API参考',
-    'faq': '常见问题'
+    guide: '指南',
+    config: '配置',
+    api: 'API参考',
+    faq: '常见问题',
   }
 
   for (const [dir, text] of Object.entries(dirMap)) {
     const dirPath = path.resolve(__dirname, '../', dir)
     if (!fs.existsSync(dirPath)) continue
 
-    const files = fs.readdirSync(dirPath)
+    const files = fs
+      .readdirSync(dirPath)
       .filter(file => file.endsWith('.md'))
       .sort((a, b) => {
         // README.md 总是排在第一位
@@ -69,8 +68,8 @@ function generateSidebar() {
     sidebar[`/${dir}/`] = [
       {
         text,
-        children: files
-      }
+        children: files,
+      },
     ]
   }
 
@@ -80,7 +79,9 @@ function generateSidebar() {
 // 获取仓库信息
 function getRepoInfo() {
   try {
-    const packageJson = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../../../package.json'), 'utf8'))
+    const packageJson = JSON.parse(
+      fs.readFileSync(path.resolve(__dirname, '../../../package.json'), 'utf8')
+    )
     const repoUrl = packageJson.repository?.url || ''
     let repo = ''
 
@@ -93,12 +94,12 @@ function getRepoInfo() {
         repo = repoUrl
       }
     } else {
-      repo = "https://github.com/yourusername/vuepress-template"
+      repo = 'https://github.com/yourusername/vuepress-template'
     }
 
     return repo
   } catch (e) {
-    return "https://github.com/yourusername/vuepress-template"
+    return 'https://github.com/yourusername/vuepress-template'
   }
 }
 
@@ -113,10 +114,29 @@ export default defineUserConfig({
     ['meta', { name: 'keywords', content: 'vuepress, vue, 文档, 博客' }],
     ['meta', { name: 'theme-color', content: '#3eaf7c' }],
     ['meta', { name: 'apple-mobile-web-app-capable', content: 'yes' }],
-    ['meta', { name: 'apple-mobile-web-app-status-bar-style', content: 'black' }],
-    ['link', { rel: 'apple-touch-icon', href: '/images/icons/apple-touch-icon.png' }],
-    ['link', { rel: 'mask-icon', href: '/images/icons/safari-pinned-tab.svg', color: '#3eaf7c' }],
-    ['meta', { name: 'msapplication-TileImage', content: '/images/icons/mstile-150x150.png' }],
+    [
+      'meta',
+      { name: 'apple-mobile-web-app-status-bar-style', content: 'black' },
+    ],
+    [
+      'link',
+      { rel: 'apple-touch-icon', href: '/images/icons/apple-touch-icon.png' },
+    ],
+    [
+      'link',
+      {
+        rel: 'mask-icon',
+        href: '/images/icons/safari-pinned-tab.svg',
+        color: '#3eaf7c',
+      },
+    ],
+    [
+      'meta',
+      {
+        name: 'msapplication-TileImage',
+        content: '/images/icons/mstile-150x150.png',
+      },
+    ],
     ['meta', { name: 'msapplication-TileColor', content: '#3eaf7c' }],
   ],
 
@@ -163,7 +183,7 @@ export default defineUserConfig({
       // 使用新的格式替代已弃用的 permalink 选项
       permalinkSymbol: '#',
       permalinkPattern: (slug, opts) => `#${slug}`,
-      tabIndex: false
+      tabIndex: false,
     },
     links: { externalAttrs: { target: '_blank', rel: 'noopener noreferrer' } },
     toc: { includeLevel: [1, 2, 3] },
@@ -176,8 +196,8 @@ export default defineUserConfig({
       copyCode: {
         selector: 'div[class*="language-"]',
         successText: '已复制!',
-        failureText: '复制失败!'
-      }
+        failureText: '复制失败!',
+      },
     },
   },
 
@@ -245,7 +265,7 @@ export default defineUserConfig({
       // 显示搜索框热键提示
       hotKeys: ['s', '/'],
       // 搜索索引选项
-      isSearchable: (page) => page.path !== '/',
+      isSearchable: page => page.path !== '/',
     }),
 
     // Algolia DocSearch 插件 (需要自行申请和配置)

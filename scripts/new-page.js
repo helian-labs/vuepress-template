@@ -5,16 +5,16 @@
  * 使用方法: npm run docs:new
  */
 
-import fs from 'fs';
-import path from 'path';
-import readline from 'readline';
+import fs from 'fs'
+import path from 'path'
+import readline from 'readline'
 
 const rl = readline.createInterface({
   input: process.stdin,
-  output: process.stdout
-});
+  output: process.stdout,
+})
 
-const DOCS_DIR = path.resolve('docs');
+const DOCS_DIR = path.resolve('docs')
 const TEMPLATES = {
   normal: `# 页面标题
 
@@ -104,18 +104,18 @@ interface Config {
 ## 常见问题
 
 常见问题及解决方案。
-`
-};
+`,
+}
 
 // 支持的目录类型
-const SECTIONS = ['guide', 'config', 'api', 'faq', 'advanced'];
+const SECTIONS = ['guide', 'config', 'api', 'faq', 'advanced']
 
 /**
  * 确保目录存在
  */
 function ensureDirectoryExists(dir) {
   if (!fs.existsSync(dir)) {
-    fs.mkdirSync(dir, { recursive: true });
+    fs.mkdirSync(dir, { recursive: true })
   }
 }
 
@@ -123,91 +123,91 @@ function ensureDirectoryExists(dir) {
  * 创建新页面
  */
 async function createNewPage() {
-  console.log('✨ 创建新的文档页面');
+  console.log('✨ 创建新的文档页面')
 
   // 1. 选择文档类型/目录
-  const section = await new Promise((resolve) => {
-    rl.question(`选择文档类型 (${SECTIONS.join('/')}): `, (answer) => {
-      const section = answer.trim().toLowerCase();
+  const section = await new Promise(resolve => {
+    rl.question(`选择文档类型 (${SECTIONS.join('/')}): `, answer => {
+      const section = answer.trim().toLowerCase()
       if (!SECTIONS.includes(section)) {
-        console.log(`无效的文档类型。请选择: ${SECTIONS.join(', ')}`);
-        process.exit(1);
+        console.log(`无效的文档类型。请选择: ${SECTIONS.join(', ')}`)
+        process.exit(1)
       }
-      resolve(section);
-    });
-  });
+      resolve(section)
+    })
+  })
 
   // 2. 输入页面名称
-  const pageName = await new Promise((resolve) => {
-    rl.question('输入页面名称 (如 getting-started): ', (answer) => {
-      const name = answer.trim().toLowerCase();
+  const pageName = await new Promise(resolve => {
+    rl.question('输入页面名称 (如 getting-started): ', answer => {
+      const name = answer.trim().toLowerCase()
       if (!name) {
-        console.log('页面名称不能为空');
-        process.exit(1);
+        console.log('页面名称不能为空')
+        process.exit(1)
       }
-      resolve(name);
-    });
-  });
+      resolve(name)
+    })
+  })
 
   // 3. 输入页面标题
-  const pageTitle = await new Promise((resolve) => {
-    rl.question('输入页面标题 (如 快速开始): ', (answer) => {
-      const title = answer.trim();
+  const pageTitle = await new Promise(resolve => {
+    rl.question('输入页面标题 (如 快速开始): ', answer => {
+      const title = answer.trim()
       if (!title) {
-        console.log('页面标题不能为空');
-        process.exit(1);
+        console.log('页面标题不能为空')
+        process.exit(1)
       }
-      resolve(title);
-    });
-  });
+      resolve(title)
+    })
+  })
 
   // 4. 选择模板
-  const templateType = await new Promise((resolve) => {
-    const choices = Object.keys(TEMPLATES);
-    rl.question(`选择模板类型 (${choices.join('/')}): `, (answer) => {
-      const type = answer.trim().toLowerCase();
+  const templateType = await new Promise(resolve => {
+    const choices = Object.keys(TEMPLATES)
+    rl.question(`选择模板类型 (${choices.join('/')}): `, answer => {
+      const type = answer.trim().toLowerCase()
       if (!choices.includes(type)) {
-        console.log(`无效的模板类型。请选择: ${choices.join(', ')}`);
-        process.exit(1);
+        console.log(`无效的模板类型。请选择: ${choices.join(', ')}`)
+        process.exit(1)
       }
-      resolve(type);
-    });
-  });
+      resolve(type)
+    })
+  })
 
   // 构建文件路径
-  const sectionDir = path.join(DOCS_DIR, section);
-  ensureDirectoryExists(sectionDir);
+  const sectionDir = path.join(DOCS_DIR, section)
+  ensureDirectoryExists(sectionDir)
 
-  const filePath = path.join(sectionDir, `${pageName}.md`);
+  const filePath = path.join(sectionDir, `${pageName}.md`)
 
   // 检查文件是否已存在
   if (fs.existsSync(filePath)) {
-    const overwrite = await new Promise((resolve) => {
-      rl.question('文件已存在，是否覆盖? (y/n): ', (answer) => {
-        resolve(answer.trim().toLowerCase() === 'y');
-      });
-    });
+    const overwrite = await new Promise(resolve => {
+      rl.question('文件已存在，是否覆盖? (y/n): ', answer => {
+        resolve(answer.trim().toLowerCase() === 'y')
+      })
+    })
 
     if (!overwrite) {
-      console.log('操作已取消');
-      rl.close();
-      return;
+      console.log('操作已取消')
+      rl.close()
+      return
     }
   }
 
   // 处理模板内容
-  let content = TEMPLATES[templateType];
-  content = content.replace(/^# .*$/m, `# ${pageTitle}`);
+  let content = TEMPLATES[templateType]
+  content = content.replace(/^# .*$/m, `# ${pageTitle}`)
 
   // 写入文件
-  fs.writeFileSync(filePath, content);
-  console.log(`✅ 成功创建页面: ${filePath}`);
+  fs.writeFileSync(filePath, content)
+  console.log(`✅ 成功创建页面: ${filePath}`)
 
-  rl.close();
+  rl.close()
 }
 
 // 启动流程
 createNewPage().catch(err => {
-  console.error('发生错误:', err);
-  process.exit(1);
-});
+  console.error('发生错误:', err)
+  process.exit(1)
+})

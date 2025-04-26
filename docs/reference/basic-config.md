@@ -1,3 +1,7 @@
+---
+title: 基本配置
+---
+
 # 基本配置
 
 VuePress 站点的基本配置包括站点信息、语言、页面头部等设置。
@@ -8,13 +12,13 @@ VuePress 站点的基本配置包括站点信息、语言、页面头部等设�
 export default {
   // 站点语言
   lang: 'zh-CN',
-  
+
   // 站点标题
   title: 'VuePress 模板',
-  
+
   // 站点描述
   description: '基于 VuePress 的文档站点模板',
-  
+
   // 站点 base 路径，默认是 /
   base: '/',
 }
@@ -57,16 +61,16 @@ export default {
   head: [
     // 添加 favicon
     ['link', { rel: 'icon', href: '/images/logo.png' }],
-    
+
     // 添加作者标签
     ['meta', { name: 'author', content: 'VuePress 团队' }],
-    
+
     // 添加关键词
     ['meta', { name: 'keywords', content: 'vuepress, vue, 文档, 博客' }],
-    
+
     // 添加自定义 JavaScript
     ['script', { src: '/js/custom.js' }],
-    
+
     // 添加自定义 CSS
     ['link', { rel: 'stylesheet', href: '/styles/custom.css' }],
   ],
@@ -143,24 +147,24 @@ VuePress 提供了强大的 Markdown 配置选项：
 export default {
   markdown: {
     // 设置锚点选项
-    anchor: { 
+    anchor: {
       permalink: true,
       permalinkSymbol: '#',
     },
-    
+
     // 设置外部链接选项
-    links: { 
-      externalAttrs: { 
-        target: '_blank', 
+    links: {
+      externalAttrs: {
+        target: '_blank',
         rel: 'noopener noreferrer',
       },
     },
-    
+
     // 设置目录选项
-    toc: { 
+    toc: {
       includeLevel: [1, 2, 3],
     },
-    
+
     // 启用代码块行号
     code: {
       lineNumbers: true,
@@ -173,4 +177,4 @@ export default {
 
 ## 参考链接
 
-- [VuePress 官方配置参考](https://v2.vuepress.vuejs.org/zh/reference/config.html) 
+- [VuePress 官方配置参考](https://v2.vuepress.vuejs.org/zh/reference/config.html)

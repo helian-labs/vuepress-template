@@ -1,46 +1,50 @@
-# Get Started
+---
+title: 快速开始
+---
 
-This is a normal page, which contains VuePress basics.
+# 快速开始
 
-## Pages
+这是一个基础页面，包含 VuePress 的基本知识。
 
-You can add markdown files in your vuepress directory, every markdown file will be converted to a page in your site.
+## 页面
 
-See [routing][] for more details.
+你可以在 VuePress 目录中添加 Markdown 文件，每个 Markdown 文件都会被转换为站点中的一个页面。
 
-## Content
+更多详情请参见[路由][]。
 
-Every markdown file [will be rendered to HTML, then converted to a Vue SFC][content].
+## 内容
 
-VuePress support basic markdown syntax and [some extensions][synatex-extensions], you can also [use Vue features][vue-feature] in it.
+每个 Markdown 文件[会被渲染为 HTML，然后转换为 Vue 单文件组件][content]。
 
-## Configuration
+VuePress 支持基本的 Markdown 语法和[一些扩展][syntax-extensions]，你还可以在其中[使用 Vue 特性][vue-feature]。
 
-VuePress use a `.vuepress/config.js`(or .ts) file as [site configuration][config], you can use it to config your site.
+## 配置
 
-For [client side configuration][client-config], you can create `.vuepress/client.js`(or .ts).
+VuePress 使用 `.vuepress/config.js`（或 .ts）文件作为[站点配置][config]，你可以用它来配置你的站点。
 
-Meanwhile, you can also add configuration per page with [frontmatter][].
+对于[客户端配置][client-config]，你可以创建 `.vuepress/client.js`（或 .ts）。
 
-## Layouts and customization
+同时，你也可以通过[frontmatter][]为每个页面添加配置。
 
-Here are common configuration controlling layout of `@vuepress/theme-default`:
+## 布局和自定义
 
-- [navbar][]
-- [sidebar][]
+以下是控制 `@vuepress/theme-default` 布局的常见配置：
 
-Check [default theme docs][default-theme] for full reference.
+- [导航栏][navbar]
+- [侧边栏][sidebar]
 
-You can [add extra style][style] with `.vuepress/styles/index.scss` file.
+查看[默认主题文档][default-theme]获取完整参考。
 
-[routing]: https://vuejs.press/guide/page.html#routing
-[content]: https://vuejs.press/guide/page.html#content
-[synatex-extensions]: https://vuejs.press/guide/markdown.html#syntax-extensions
-[vue-feature]: https://vuejs.press/guide/markdown.html#using-vue-in-markdown
-[config]: https://vuejs.press/guide/configuration.html#client-config-file
-[client-config]: https://vuejs.press/guide/configuration.html#client-config-file
-[frontmatter]: https://vuejs.press/guide/page.html#frontmatter
-[navbar]: https://vuejs.press/reference/default-theme/config.html#navbar
-[sidebar]: https://vuejs.press/reference/default-theme/config.html#sidebar
-[default-theme]: https://vuejs.press/reference/default-theme/
-[style]: https://vuejs.press/reference/default-theme/styles.html#style-file
+你可以通过 `.vuepress/styles/index.scss` 文件[添加额外样式][style]。
+
+[routing]: https://v2.vuepress.vuejs.org/zh/guide/page.html#routing
+[content]: https://v2.vuepress.vuejs.org/zh/guide/page.html#content
+[syntax-extensions]: https://v2.vuepress.vuejs.org/zh/guide/markdown.html#syntax-extensions
+[vue-feature]: https://v2.vuepress.vuejs.org/zh/guide/markdown.html#using-vue-in-markdown
+[config]: https://v2.vuepress.vuejs.org/zh/guide/configuration.html#client-config-file
+[client-config]: https://v2.vuepress.vuejs.org/zh/guide/configuration.html#client-config-file
+[frontmatter]: https://v2.vuepress.vuejs.org/zh/guide/page.html#frontmatter
+[navbar]: https://v2.vuepress.vuejs.org/zh/reference/default-theme/config.html#navbar
+[sidebar]: https://v2.vuepress.vuejs.org/zh/reference/default-theme/config.html#sidebar
+[default-theme]: https://v2.vuepress.vuejs.org/zh/reference/default-theme/
+[style]: https://v2.vuepress.vuejs.org/zh/reference/default-theme/styles.html#style-file

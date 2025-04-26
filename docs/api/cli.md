@@ -1,3 +1,7 @@
+---
+title: CLI 命令
+---
+
 # 命令行接口
 
 VuePress 提供了一个命令行接口 (CLI)，可用于开发和构建文档站点。
@@ -160,7 +164,7 @@ export default {
   // 站点配置
   port: 8080,
   open: true,
-  
+
   // 其他配置
 }
 ```
@@ -179,4 +183,4 @@ VUEPRESS_DEST=dist vuepress build docs
 
 ## 参考链接
 
-- [VuePress 官方 CLI 参考](https://v2.vuepress.vuejs.org/zh/reference/cli.html) 
+- [VuePress 官方 CLI 参考](https://v2.vuepress.vuejs.org/zh/reference/cli.html)

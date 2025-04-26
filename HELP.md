@@ -179,4 +179,5 @@
 - [awesome-vue](https://github.com/vuejs/awesome-vue) - 精选的 Vue 生态资源列表
 
 ---
+
 希望这份增强版的指南能更好地帮助您探索 VuePress 和 Vue 3 的世界！

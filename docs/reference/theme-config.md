@@ -1,3 +1,7 @@
+---
+title: 主题配置
+---
+
 # 主题配置
 
 VuePress 默认主题提供了许多配置选项，以满足大多数文档网站的需求。本页将详细介绍如何配置 VuePress 的默认主题。
@@ -13,8 +17,12 @@ export default {
   theme: defaultTheme({
     // 默认主题配置
     logo: '/images/logo.png',
-    navbar: [ /* ... */ ],
-    sidebar: { /* ... */ },
+    navbar: [
+      /* ... */
+    ],
+    sidebar: {
+      /* ... */
+    },
   }),
 }
 ```
@@ -55,17 +63,11 @@ theme: defaultTheme({
       children: [
         {
           text: '配置',
-          children: [
-            '/config/README.md',
-            '/config/basic-config.md',
-          ],
+          children: ['/config/README.md', '/config/basic-config.md'],
         },
         {
           text: 'API',
-          children: [
-            '/api/README.md',
-            '/api/cli.md',
-          ],
+          children: ['/api/README.md', '/api/cli.md'],
         },
       ],
     },
@@ -119,20 +121,12 @@ theme: defaultTheme({
     {
       text: '指南',
       collapsible: true, // 可折叠
-      children: [
-        '/guide/',
-        '/guide/introduction',
-        '/guide/getting-started',
-      ],
+      children: ['/guide/', '/guide/introduction', '/guide/getting-started'],
     },
     {
       text: '配置',
       collapsible: false, // 不可折叠
-      children: [
-        '/config/',
-        '/config/basic-config',
-        '/config/theme-config',
-      ],
+      children: ['/config/', '/config/basic-config', '/config/theme-config'],
     },
   ],
 })
@@ -148,21 +142,13 @@ theme: defaultTheme({
     '/guide/': [
       {
         text: '指南',
-        children: [
-          '/guide/',
-          '/guide/introduction',
-          '/guide/getting-started',
-        ],
+        children: ['/guide/', '/guide/introduction', '/guide/getting-started'],
       },
     ],
     '/config/': [
       {
         text: '配置',
-        children: [
-          '/config/',
-          '/config/basic-config',
-          '/config/theme-config',
-        ],
+        children: ['/config/', '/config/basic-config', '/config/theme-config'],
       },
     ],
   },
@@ -215,7 +201,7 @@ theme: defaultTheme({
   // 编辑链接
   editLink: true,
   editLinkText: '在 GitHub 上编辑此页',
-  docsRepo: 'https://github.com/yourusername/vuepress-template',
+  docsRepo: 'https://github.com/vuepress/core',
   docsBranch: 'main',
   docsDir: 'docs',
 })
@@ -261,11 +247,14 @@ export default {
         ],
         sidebar: {
           '/guide/': [
-            { text: '指南', children: [ /* ... */ ] },
+            {
+              text: '指南',
+              children: [
+                /* ... */
+              ],
+            },
           ],
         },
-        selectLanguageName: '简体中文',
-        selectLanguageText: '选择语言',
       },
       '/en/': {
         navbar: [
@@ -274,77 +263,24 @@ export default {
         ],
         sidebar: {
           '/en/guide/': [
-            { text: 'Guide', children: [ /* ... */ ] },
+            {
+              text: 'Guide',
+              children: [
+                /* ... */
+              ],
+            },
           ],
         },
-        selectLanguageName: 'English',
-        selectLanguageText: 'Languages',
       },
     },
   }),
 }
 ```
 
-## 社交链接
-
-配置社交媒体链接：
-
-```js
-theme: defaultTheme({
-  // 社交链接
-  socialLinks: [
-    { icon: 'github', link: 'https://github.com/yourusername/vuepress-template' },
-    { icon: 'twitter', link: 'https://twitter.com/yourusername' },
-  ],
-})
-```
-
-## 自定义容器
-
-VuePress 默认主题内置了多种自定义容器：
-
-```js
-theme: defaultTheme({
-  tip: '提示',
-  warning: '注意',
-  danger: '警告',
-  // 配置默认标题
-})
-```
-
-在 Markdown 中使用：
-
-```markdown
-::: tip
-这是一个提示
-:::
-
-::: warning
-这是一个警告
-:::
-
-::: danger
-这是一个危险警告
-:::
-
-::: details
-这是一个详情块，在 IE / Edge 中不生效
-:::
-```
-
-## 深色模式
-
-VuePress 默认主题支持深色模式，可以配置默认主题模式：
-
-```js
-theme: defaultTheme({
-  // 默认主题模式
-  // 'auto' | 'light' | 'dark'
-  colorModeSwitch: true,
-  colorMode: 'auto',
-})
-```
-
 ## 参考链接
 
-- [VuePress 默认主题配置](https://v2.vuepress.vuejs.org/zh/reference/default-theme/config.html) 
+- [VuePress 默认主题配置](https://v2.vuepress.vuejs.org/zh/reference/default-theme/config.html)
+
+## 更多配置
+
+更多配置选项请参考 [VuePress 默认主题配置文档](https://v2.vuepress.vuejs.org/zh/reference/default-theme/config.html)。

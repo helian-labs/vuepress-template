@@ -35,15 +35,17 @@ function getRepoInfo(): string {
       }
     } else {
       // 如果 package.json 中没有，则使用默认值
-      repo = "https://github.com/yourusername/vuepress-template"
-      console.warn("Warning: repository.url not found in package.json. Using default repo URL.")
+      repo = 'https://github.com/yourusername/vuepress-template'
+      console.warn(
+        'Warning: repository.url not found in package.json. Using default repo URL.'
+      )
     }
 
     return repo
   } catch (e) {
     console.error('Error reading package.json for repo info:', e)
     // 出错时返回默认值
-    return "https://github.com/yourusername/vuepress-template"
+    return 'https://github.com/yourusername/vuepress-template'
   }
 }
 
@@ -126,9 +128,9 @@ export default defineUserConfig({
 
     // -- 跨语言配置项 --
     // themePlugins: {
-      // 在这里配置默认主题提供的插件
-      // 例如：关闭 git 插件（如果已经在 locales 中启用了 lastUpdated 和 contributors）
-      // git: false,
+    // 在这里配置默认主题提供的插件
+    // 例如：关闭 git 插件（如果已经在 locales 中启用了 lastUpdated 和 contributors）
+    // git: false,
     // },
   }),
 

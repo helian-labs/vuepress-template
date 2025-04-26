@@ -41,5 +41,5 @@ footer: MIT Licensed | Copyright © 2024 [Your Name/Organization]
 
 ## 快速链接
 
-- [GitHub 仓库](https://github.com/yourusername/vuepress-template) <!-- 请替换为你的仓库链接 -->
+- [GitHub 仓库](https://github.com/vuepress/vuepress-next)
 - [VuePress 官方文档](https://v2.vuepress.vuejs.org/zh/)

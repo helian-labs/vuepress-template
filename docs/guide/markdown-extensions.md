@@ -32,7 +32,7 @@ VuePress 默认支持标准的 CommonMark Markdown 语法，并在此基础上�
 
 - 列表项 1
 - 列表项 2
-:::
+  :::
 ```
 
 **效果：**
@@ -54,7 +54,7 @@ VuePress 默认支持标准的 CommonMark Markdown 语法，并在此基础上�
 
 - 列表项 1
 - 列表项 2
-:::
+  :::
 
 ## 代码组
 
@@ -129,9 +129,10 @@ export default defineUserConfig({
 <<< @/.vuepress/config.ts#config-snippet
 
 **注意：**
-*   路径别名 `@` 指向 `docs` 目录。
-*   需要使用 `#region region-name` 和 `#endregion region-name` 在源文件中标记代码片段。
-*   `handleImportPath` 已在 `docs/.vuepress/config.ts` 的 `markdown.importCode` 部分配置，用于处理 `@` 别名。
+
+- 路径别名 `@` 指向 `docs` 目录。
+- 需要使用 `#region region-name` 和 `#endregion region-name` 在源文件中标记代码片段。
+- `handleImportPath` 已在 `docs/.vuepress/config.ts` 的 `markdown.importCode` 部分配置，用于处理 `@` 别名。
 
 ## 其他常用语法
 
@@ -187,4 +188,4 @@ export default defineUserConfig({
 
 ## 更多
 
-VuePress 还支持其他 Markdown 扩展，例如数学公式 (需要安装插件)、图表等。详情请查阅 [VuePress 官方文档 > Markdown](https://v2.vuepress.vuejs.org/zh/guide/markdown.html)。 
+VuePress 还支持其他 Markdown 扩展，例如数学公式 (需要安装插件)、图表等。详情请查阅 [VuePress 官方文档 > Markdown](https://v2.vuepress.vuejs.org/zh/guide/markdown.html)。

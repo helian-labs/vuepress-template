@@ -1,3 +1,7 @@
+---
+title: 内容校验
+---
+
 # 文档内容校验
 
 本项目提供了强大的文档内容校验功能，帮助您保持文档的质量和一致性。
@@ -37,11 +41,11 @@ npm run validate
 // 示例: 添加新的拼写规则
 const SPELLING_CORRECTIONS = {
   // 现有规则
-  'javascript': 'JavaScript',
+  javascript: 'JavaScript',
   // 添加自定义规则
-  'react': 'React',
-  'nextjs': 'Next.js'
-};
+  react: 'React',
+  nextjs: 'Next.js',
+}
 ```
 
 ### 链接验证选项
@@ -53,8 +57,8 @@ const SPELLING_CORRECTIONS = {
 
 ```js
 // 示例: 修改链接验证配置
-const MAX_CONCURRENT_REQUESTS = 10; // 默认为5
-const REQUEST_TIMEOUT = 10000; // 默认为5000ms
+const MAX_CONCURRENT_REQUESTS = 10 // 默认为5
+const REQUEST_TIMEOUT = 10000 // 默认为5000ms
 ```
 
 ## 输出说明
@@ -94,14 +98,14 @@ const REQUEST_TIMEOUT = 10000; // 默认为5000ms
 // 示例: 添加自定义验证规则
 function validateCustomFormat(content, filePath) {
   // 实现自定义验证逻辑
-  const customRegex = /特定格式/g;
+  const customRegex = /特定格式/g
   if (customRegex.test(content)) {
-    warnings.push(`${filePath}: 发现自定义格式问题`);
+    warnings.push(`${filePath}: 发现自定义格式问题`)
   }
 }
 
 // 然后在主验证函数中调用
-validateCustomFormat(content, relativePath);
+validateCustomFormat(content, relativePath)
 ```
 
 ## 常见问题排查
@@ -111,4 +115,4 @@ validateCustomFormat(content, relativePath);
 1. Node.js 版本是否兼容
 2. 是否安装了所有必要的依赖
 3. 网络连接状态（外部链接验证需要网络连接）
-4. 是否有防火墙或代理限制外部请求 
+4. 是否有防火墙或代理限制外部请求

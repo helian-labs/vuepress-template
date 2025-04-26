@@ -72,7 +72,7 @@ export default defineUserConfig({
       ],
     },
   }),
-  
+
   // Markdown 配置
   markdown: {
     anchor: { permalink: true, permalinkSymbol: '#' },
@@ -84,4 +84,4 @@ export default defineUserConfig({
 
 ## 参考链接
 
-- [VuePress 官方配置参考](https://v2.vuepress.vuejs.org/zh/reference/config.html) 
+- [VuePress 官方配置参考](https://v2.vuepress.vuejs.org/zh/reference/config.html)

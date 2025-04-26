@@ -23,4 +23,4 @@
 
 ```markdown
 ![Logo](../public/images/logo.png)
-``` 
+```
