@@ -114,14 +114,8 @@ export default defineUserConfig({
     ['meta', { name: 'keywords', content: 'vuepress, vue, 文档, 博客' }],
     ['meta', { name: 'theme-color', content: '#3eaf7c' }],
     ['meta', { name: 'apple-mobile-web-app-capable', content: 'yes' }],
-    [
-      'meta',
-      { name: 'apple-mobile-web-app-status-bar-style', content: 'black' },
-    ],
-    [
-      'link',
-      { rel: 'apple-touch-icon', href: '/images/icons/apple-touch-icon.png' },
-    ],
+    ['meta', { name: 'apple-mobile-web-app-status-bar-style', content: 'black' }],
+    ['link', { rel: 'apple-touch-icon', href: '/images/icons/apple-touch-icon.png' }],
     [
       'link',
       {

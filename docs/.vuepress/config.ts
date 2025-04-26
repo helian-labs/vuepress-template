@@ -36,9 +36,7 @@ function getRepoInfo(): string {
     } else {
       // 如果 package.json 中没有，则使用默认值
       repo = 'https://github.com/yourusername/vuepress-template'
-      console.warn(
-        'Warning: repository.url not found in package.json. Using default repo URL.'
-      )
+      console.warn('Warning: repository.url not found in package.json. Using default repo URL.')
     }
 
     return repo

@@ -11,12 +11,12 @@ VuePress 默认主题提供了许多配置选项，以满足大多数文档网�
 要使用默认主题，首先需要导入并使用它：
 
 ```js
-import { defaultTheme } from '@vuepress/theme-default'
+import { defaultTheme } from "@vuepress/theme-default"
 
 export default {
   theme: defaultTheme({
     // 默认主题配置
-    logo: '/images/logo.png',
+    logo: "/images/logo.png",
     navbar: [
       /* ... */
     ],
@@ -40,34 +40,34 @@ theme: defaultTheme({
   navbar: [
     // 导航链接
     {
-      text: '首页',
-      link: '/',
+      text: "首页",
+      link: "/",
     },
     // 下拉菜单
     {
-      text: '指南',
+      text: "指南",
       children: [
         {
-          text: '介绍',
-          link: '/guide/introduction.html',
+          text: "介绍",
+          link: "/guide/introduction.html",
         },
         {
-          text: '快速上手',
-          link: '/guide/getting-started.html',
+          text: "快速上手",
+          link: "/guide/getting-started.html",
         },
       ],
     },
     // 嵌套下拉菜单
     {
-      text: '参考',
+      text: "参考",
       children: [
         {
-          text: '配置',
-          children: ['/config/README.md', '/config/basic-config.md'],
+          text: "配置",
+          children: ["/config/README.md", "/config/basic-config.md"],
         },
         {
-          text: 'API',
-          children: ['/api/README.md', '/api/cli.md'],
+          text: "API",
+          children: ["/api/README.md", "/api/cli.md"],
         },
       ],
     },
@@ -104,9 +104,9 @@ navbar: false
 ```js
 theme: defaultTheme({
   sidebar: [
-    '/', // 首页
-    '/guide/', // 指南首页
-    '/guide/introduction', // 介绍页
+    "/", // 首页
+    "/guide/", // 指南首页
+    "/guide/introduction", // 介绍页
   ],
 })
 ```
@@ -119,14 +119,14 @@ theme: defaultTheme({
 theme: defaultTheme({
   sidebar: [
     {
-      text: '指南',
+      text: "指南",
       collapsible: true, // 可折叠
-      children: ['/guide/', '/guide/introduction', '/guide/getting-started'],
+      children: ["/guide/", "/guide/introduction", "/guide/getting-started"],
     },
     {
-      text: '配置',
+      text: "配置",
       collapsible: false, // 不可折叠
-      children: ['/config/', '/config/basic-config', '/config/theme-config'],
+      children: ["/config/", "/config/basic-config", "/config/theme-config"],
     },
   ],
 })
@@ -139,16 +139,16 @@ theme: defaultTheme({
 ```js
 theme: defaultTheme({
   sidebar: {
-    '/guide/': [
+    "/guide/": [
       {
-        text: '指南',
-        children: ['/guide/', '/guide/introduction', '/guide/getting-started'],
+        text: "指南",
+        children: ["/guide/", "/guide/introduction", "/guide/getting-started"],
       },
     ],
-    '/config/': [
+    "/config/": [
       {
-        text: '配置',
-        children: ['/config/', '/config/basic-config', '/config/theme-config'],
+        text: "配置",
+        children: ["/config/", "/config/basic-config", "/config/theme-config"],
       },
     ],
   },
@@ -180,7 +180,7 @@ sidebar: false
 ```js
 theme: defaultTheme({
   // 默认为 'MIT Licensed | Copyright © 2018-present Vue.js'
-  footer: 'MIT Licensed | Copyright © 2024',
+  footer: "MIT Licensed | Copyright © 2024",
 })
 ```
 
@@ -200,10 +200,10 @@ footer: 这是自定义页脚
 theme: defaultTheme({
   // 编辑链接
   editLink: true,
-  editLinkText: '在 GitHub 上编辑此页',
-  docsRepo: 'https://github.com/vuepress/core',
-  docsBranch: 'main',
-  docsDir: 'docs',
+  editLinkText: "在 GitHub 上编辑此页",
+  docsRepo: "https://github.com/vuepress/core",
+  docsBranch: "main",
+  docsDir: "docs",
 })
 ```
 
@@ -214,9 +214,9 @@ theme: defaultTheme({
 ```js
 theme: defaultTheme({
   lastUpdated: true,
-  lastUpdatedText: '上次更新',
+  lastUpdatedText: "上次更新",
   contributors: true,
-  contributorsText: '贡献者',
+  contributorsText: "贡献者",
 })
 ```
 
@@ -227,28 +227,28 @@ theme: defaultTheme({
 ```js
 export default {
   locales: {
-    '/': {
-      lang: 'zh-CN',
-      title: 'VuePress 模板',
-      description: '基于 VuePress 的文档站点模板',
+    "/": {
+      lang: "zh-CN",
+      title: "VuePress 模板",
+      description: "基于 VuePress 的文档站点模板",
     },
-    '/en/': {
-      lang: 'en-US',
-      title: 'VuePress Template',
-      description: 'A VuePress-based documentation site template',
+    "/en/": {
+      lang: "en-US",
+      title: "VuePress Template",
+      description: "A VuePress-based documentation site template",
     },
   },
   theme: defaultTheme({
     locales: {
-      '/': {
+      "/": {
         navbar: [
-          { text: '首页', link: '/' },
-          { text: '指南', link: '/guide/' },
+          { text: "首页", link: "/" },
+          { text: "指南", link: "/guide/" },
         ],
         sidebar: {
-          '/guide/': [
+          "/guide/": [
             {
-              text: '指南',
+              text: "指南",
               children: [
                 /* ... */
               ],
@@ -256,15 +256,15 @@ export default {
           ],
         },
       },
-      '/en/': {
+      "/en/": {
         navbar: [
-          { text: 'Home', link: '/en/' },
-          { text: 'Guide', link: '/en/guide/' },
+          { text: "Home", link: "/en/" },
+          { text: "Guide", link: "/en/guide/" },
         ],
         sidebar: {
-          '/en/guide/': [
+          "/en/guide/": [
             {
-              text: 'Guide',
+              text: "Guide",
               children: [
                 /* ... */
               ],

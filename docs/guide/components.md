@@ -67,10 +67,10 @@ pnpm create:component MyComponent
 
 <script>
 export default {
-  name: 'MyComponent',
+  name: "MyComponent",
   data() {
     return {
-      message: 'Hello from MyComponent!',
+      message: "Hello from MyComponent!",
     }
   },
 }
@@ -109,7 +109,7 @@ export default {
  * <MyDemoComponent />
  */
 export default {
-  name: 'MyDemoComponent',
+  name: "MyDemoComponent",
 }
 </script>
 ```

@@ -40,6 +40,8 @@
     "eslint": "^8.57.1",
     "eslint-config-prettier": "^9.1.0",
     "eslint-define-config": "^2.1.0",
+    "eslint-plugin-import": "2.31.0",
+    "eslint-plugin-prettier": "5.2.6",
     "eslint-plugin-vue": "^9.33.0",
     "glob": "^10.4.5",
     "gray-matter": "^4.0.3",

@@ -1,9 +1,9 @@
 ---
 name: Pull Request
 about: 提交代码或文档更改
-title: '<类型>(<范围>): <简短描述>'
-labels: ''
-assignees: ''
+title: "<类型>(<范围>): <简短描述>"
+labels: ""
+assignees: ""
 ---
 
 **请在提交前仔细阅读并填写以下信息。这将有助于我们更快地理解和审阅您的贡献。**

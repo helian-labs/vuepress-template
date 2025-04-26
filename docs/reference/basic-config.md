@@ -11,16 +11,16 @@ VuePress 站点的基本配置包括站点信息、语言、页面头部等设�
 ```js
 export default {
   // 站点语言
-  lang: 'zh-CN',
+  lang: "zh-CN",
 
   // 站点标题
-  title: 'VuePress 模板',
+  title: "VuePress 模板",
 
   // 站点描述
-  description: '基于 VuePress 的文档站点模板',
+  description: "基于 VuePress 的文档站点模板",
 
   // 站点 base 路径，默认是 /
-  base: '/',
+  base: "/",
 }
 ```
 
@@ -60,19 +60,19 @@ export default {
 export default {
   head: [
     // 添加 favicon
-    ['link', { rel: 'icon', href: '/images/logo.png' }],
+    ["link", { rel: "icon", href: "/images/logo.png" }],
 
     // 添加作者标签
-    ['meta', { name: 'author', content: 'VuePress 团队' }],
+    ["meta", { name: "author", content: "VuePress 团队" }],
 
     // 添加关键词
-    ['meta', { name: 'keywords', content: 'vuepress, vue, 文档, 博客' }],
+    ["meta", { name: "keywords", content: "vuepress, vue, 文档, 博客" }],
 
     // 添加自定义 JavaScript
-    ['script', { src: '/js/custom.js' }],
+    ["script", { src: "/js/custom.js" }],
 
     // 添加自定义 CSS
-    ['link', { rel: 'stylesheet', href: '/styles/custom.css' }],
+    ["link", { rel: "stylesheet", href: "/styles/custom.css" }],
   ],
 }
 ```
@@ -87,16 +87,16 @@ VuePress 支持多语言配置：
 export default {
   locales: {
     // 默认语言 - 中文
-    '/': {
-      lang: 'zh-CN',
-      title: 'VuePress 模板',
-      description: '基于 VuePress 的文档站点模板',
+    "/": {
+      lang: "zh-CN",
+      title: "VuePress 模板",
+      description: "基于 VuePress 的文档站点模板",
     },
     // 英文
-    '/en/': {
-      lang: 'en-US',
-      title: 'VuePress Template',
-      description: 'A VuePress-based documentation site template',
+    "/en/": {
+      lang: "en-US",
+      title: "VuePress Template",
+      description: "A VuePress-based documentation site template",
     },
   },
 }
@@ -149,14 +149,14 @@ export default {
     // 设置锚点选项
     anchor: {
       permalink: true,
-      permalinkSymbol: '#',
+      permalinkSymbol: "#",
     },
 
     // 设置外部链接选项
     links: {
       externalAttrs: {
-        target: '_blank',
-        rel: 'noopener noreferrer',
+        target: "_blank",
+        rel: "noopener noreferrer",
       },
     },
 

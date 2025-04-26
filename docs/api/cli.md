@@ -50,7 +50,7 @@ npm run docs:build
 
 VuePress CLI 提供了几个命令：
 
-### `vuepress dev`
+### 开发命令
 
 启动一个开发服务器，用于本地开发。
 
@@ -62,7 +62,7 @@ vuepress dev [sourceDir]
 vuepress dev docs
 ```
 
-#### 选项
+#### 开发命令选项
 
 - `-c, --config <config>` - 设置配置文件路径
 - `-p, --port <port>` - 设置端口号
@@ -74,7 +74,7 @@ vuepress dev docs
 - `--no-cache` - 禁用缓存
 - `--clean-cache` - 在启动前清除缓存
 
-### `vuepress build`
+### 构建命令
 
 构建静态站点。
 
@@ -86,7 +86,7 @@ vuepress build [sourceDir]
 vuepress build docs
 ```
 
-#### 选项
+#### 构建命令选项
 
 - `-c, --config <config>` - 设置配置文件路径
 - `-d, --dest <dest>` - 设置输出目录
@@ -96,7 +96,7 @@ vuepress build docs
 - `--no-cache` - 禁用缓存
 - `--clean-cache` - 在构建前清除缓存
 
-### `vuepress info`
+### 信息命令
 
 显示环境信息。
 
@@ -183,4 +183,4 @@ VUEPRESS_DEST=dist vuepress build docs
 
 ## 参考链接
 
-- [VuePress 官方 CLI 参考](https://v2.vuepress.vuejs.org/zh/reference/cli.html)
+- [VuePress 官方 CLI 参考](https://v2.vuepress.vuejs.org/reference/cli.html)

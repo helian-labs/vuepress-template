@@ -13,7 +13,7 @@ VuePress 的插件系统允许你扩展 VuePress 的功能。本指南将介绍�
 ```js
 const myPlugin = app => {
   return {
-    name: 'my-plugin',
+    name: "my-plugin",
     // 插件选项
   }
 }
@@ -114,9 +114,9 @@ const myPlugin = app => {
 ```js
 const myPlugin = app => {
   return {
-    name: 'my-plugin',
+    name: "my-plugin",
     onInitialized: () => {
-      console.log('应用已初始化')
+      console.log("应用已初始化")
     },
   }
 }
@@ -127,10 +127,10 @@ const myPlugin = app => {
 ```js
 const markdownPlugin = app => {
   return {
-    name: 'markdown-plugin',
+    name: "markdown-plugin",
     extendsMarkdown: md => {
       // 添加自定义 Markdown 规则
-      md.use(require('markdown-it-emoji'))
+      md.use(require("markdown-it-emoji"))
     },
   }
 }
@@ -141,7 +141,7 @@ const markdownPlugin = app => {
 ```js
 const pageDataPlugin = app => {
   return {
-    name: 'page-data-plugin',
+    name: "page-data-plugin",
     extendsPageData: pageData => {
       // 添加自定义页面数据
       pageData.customData = {
@@ -157,8 +157,8 @@ const pageDataPlugin = app => {
 在 VuePress 配置文件中使用插件：
 
 ```js
-import { defineUserConfig } from 'vuepress'
-import { myPlugin } from './my-plugin'
+import { defineUserConfig } from "vuepress"
+import { myPlugin } from "./my-plugin"
 
 export default defineUserConfig({
   plugins: [myPlugin()],

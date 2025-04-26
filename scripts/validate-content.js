@@ -216,10 +216,7 @@ function validateLinks(content, filePath, relativeMdPath) {
     // 处理相对路径
     const targetPath =
       linkPath.endsWith('.md') || linkPath.endsWith('.html')
-        ? path.resolve(
-            path.dirname(path.join(DOCS_DIR, relativeMdPath)),
-            linkPath
-          )
+        ? path.resolve(path.dirname(path.join(DOCS_DIR, relativeMdPath)), linkPath)
         : null
 
     if (targetPath && !fs.existsSync(targetPath)) {
@@ -275,10 +272,7 @@ function validateImages(content, filePath, relativeMdPath) {
     }
 
     // 检查图片是否存在
-    const targetPath = path.resolve(
-      path.dirname(path.join(DOCS_DIR, relativeMdPath)),
-      imagePath
-    )
+    const targetPath = path.resolve(path.dirname(path.join(DOCS_DIR, relativeMdPath)), imagePath)
     if (!fs.existsSync(targetPath)) {
       errors.push(`${filePath}: 图片不存在: ${imagePath}`)
     }
@@ -307,9 +301,7 @@ function validateHeadings(content, filePath) {
       if (headings.length > 1) {
         const prevHeading = headings[headings.length - 2]
         if (level > prevHeading.level + 1) {
-          warnings.push(
-            `${filePath}:${i + 1}: 标题级别跳跃: 从 h${prevHeading.level} 到 h${level}`
-          )
+          warnings.push(`${filePath}:${i + 1}: 标题级别跳跃: 从 h${prevHeading.level} 到 h${level}`)
         }
       }
     }
