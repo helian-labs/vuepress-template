@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 /**
  * VuePress构建分析脚本
  *
@@ -10,11 +8,12 @@
  * - 发现可能的性能问题
  */
 
+const { execSync } = require('child_process')
 const fs = require('fs')
 const path = require('path')
-const chalk = require('chalk')
 const zlib = require('zlib')
-const { execSync } = require('child_process')
+
+const chalk = require('chalk')
 
 // 配置
 const DIST_DIR = path.join(process.cwd(), 'docs/.vuepress/dist')

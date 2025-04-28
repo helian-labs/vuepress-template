@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 /**
  * 内容验证脚本
  *
@@ -13,15 +11,14 @@
  */
 
 import fs from 'fs'
-import path from 'path'
-import chalk from 'chalk'
-import matter from 'gray-matter'
-import { glob } from 'glob'
 import http from 'http'
 import https from 'https'
-import { URL } from 'url'
-import { fileURLToPath } from 'url'
-import { dirname } from 'path'
+import path, { dirname } from 'path'
+import { URL, fileURLToPath } from 'url'
+
+import chalk from 'chalk'
+import { glob } from 'glob'
+import matter from 'gray-matter'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
