@@ -41,10 +41,10 @@ npm run validate
 // 示例: 添加新的拼写规则
 const SPELLING_CORRECTIONS = {
   // 现有规则
-  javascript: 'JavaScript',
+  javascript: "JavaScript",
   // 添加自定义规则
-  react: 'React',
-  nextjs: 'Next.js',
+  react: "React",
+  nextjs: "Next.js",
 }
 ```
 

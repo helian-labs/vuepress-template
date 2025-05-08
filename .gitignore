@@ -1,16 +1,24 @@
 # === Dependencies ===
 node_modules/
-
-# Lock files (handled by .gitattributes)
-# package-lock.json
-# yarn.lock
-# pnpm-lock.yaml
+.pnp/
+.pnp.js
+.yarn/
+.yarnrc.yml
 
 # === Build Output ===
 docs/.vuepress/dist/
 docs/.vuepress/.temp/
 docs/.vuepress/.cache/
 dist/
+build/
+.output/
+.nuxt/
+.next/
+out/
+storybook-static/
+coverage/
+.vercel/
+.netlify/
 
 # === Logs ===
 logs
@@ -19,12 +27,16 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
+lerna-debug.log*
 
 # === Runtime Data ===
 pids
 *.pid
 *.seed
 *.pid.lock
+*.pem
+*.key
+*.cert
 
 # === OS Generated Files ===
 .DS_Store
@@ -34,6 +46,7 @@ pids
 .Trashes
 ehthumbs.db
 Thumbs.db
+desktop.ini
 
 # === Editor Directories and Files ===
 .idea/
@@ -43,6 +56,10 @@ Thumbs.db
 *.njsproj
 *.sln
 *.sw?
+*.code-workspace
+.history/
+*.sublime-project
+*.sublime-workspace
 
 # === Environment Variables ===
 .env
@@ -50,20 +67,70 @@ Thumbs.db
 .env.*.local
 .env.development
 .env.production
+.env.test
+.env.staging
 
 # === Test & Coverage ===
 coverage/
 .nyc_output/
+.nyc_output/
+__snapshots__/
+cypress/videos/
+cypress/screenshots/
+jest-stare/
+playwright-report/
+playwright/.cache/
 
 # === Cache Files ===
 .npm
 .eslintcache
 .stylelintcache
-.cache
+.cache/
+.temp/
+.tmp/
+.parcel-cache/
+.vite/
+.turbo/
+.rpt2_cache/
+.rts2_cache_cjs/
+.rts2_cache_es/
+.rts2_cache_umd/
 
 # === Temporary Files ===
 tmp/
 temp/
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
 
 # === User Specific ===
 user-config.js
+local-config.js
+*.local.js
+*.local.ts
+
+# === Generated Files ===
+*.min.js
+*.min.css
+*.bundle.js
+*.bundle.css
+*.d.ts
+*.map
+*.generated.*
+*.compiled.*
+
+# === Package Manager Specific ===
+# pnpm
+.pnpm-store/
+# yarn
+.yarn/cache/
+.yarn/unplugged/
+.yarn/build-state.yml
+.yarn/install-state.gz
+# rush
+common/temp/
+common/rush/
+# lerna
+lerna-debug.log*

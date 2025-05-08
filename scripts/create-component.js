@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 /**
  * 创建Vue组件的辅助脚本
  * 使用方法: node scripts/create-component.js

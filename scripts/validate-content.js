@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 /**
  * 内容验证脚本
  *
@@ -13,15 +11,14 @@
  */
 
 import fs from 'fs'
-import path from 'path'
-import chalk from 'chalk'
-import matter from 'gray-matter'
-import { glob } from 'glob'
 import http from 'http'
 import https from 'https'
-import { URL } from 'url'
-import { fileURLToPath } from 'url'
-import { dirname } from 'path'
+import path, { dirname } from 'path'
+import { URL, fileURLToPath } from 'url'
+
+import chalk from 'chalk'
+import { glob } from 'glob'
+import matter from 'gray-matter'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
@@ -216,10 +213,7 @@ function validateLinks(content, filePath, relativeMdPath) {
     // 处理相对路径
     const targetPath =
       linkPath.endsWith('.md') || linkPath.endsWith('.html')
-        ? path.resolve(
-            path.dirname(path.join(DOCS_DIR, relativeMdPath)),
-            linkPath
-          )
+        ? path.resolve(path.dirname(path.join(DOCS_DIR, relativeMdPath)), linkPath)
         : null
 
     if (targetPath && !fs.existsSync(targetPath)) {
@@ -275,10 +269,7 @@ function validateImages(content, filePath, relativeMdPath) {
     }
 
     // 检查图片是否存在
-    const targetPath = path.resolve(
-      path.dirname(path.join(DOCS_DIR, relativeMdPath)),
-      imagePath
-    )
+    const targetPath = path.resolve(path.dirname(path.join(DOCS_DIR, relativeMdPath)), imagePath)
     if (!fs.existsSync(targetPath)) {
       errors.push(`${filePath}: 图片不存在: ${imagePath}`)
     }
@@ -307,9 +298,7 @@ function validateHeadings(content, filePath) {
       if (headings.length > 1) {
         const prevHeading = headings[headings.length - 2]
         if (level > prevHeading.level + 1) {
-          warnings.push(
-            `${filePath}:${i + 1}: 标题级别跳跃: 从 h${prevHeading.level} 到 h${level}`
-          )
+          warnings.push(`${filePath}:${i + 1}: 标题级别跳跃: 从 h${prevHeading.level} 到 h${level}`)
         }
       }
     }

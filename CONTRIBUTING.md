@@ -41,8 +41,6 @@
    pnpm format
    # 检查代码风格
    pnpm lint
-   # (如果适用) 运行测试
-   # pnpm test
    ```
 
 6. **提交更改**: 使用清晰且符合 [提交规范](#提交规范) 的消息提交您的更改。 **推荐使用英文进行提交**，以便更广泛的开发者理解。
@@ -88,7 +86,7 @@
 - 避免使用行尾多余的空格。
 - 默认情况下，代码行末尾不使用分号 (`;`)。
 - 本项目配置了 [Prettier](https://prettier.io/) 和 [ESLint](https://eslint.org/) 来统一和检查代码风格。
-- **强烈建议在提交代码前运行 `pnpm format` 和 `pnpm lint` 命令**，并修复所有报告的问题，以确保代码风格一致性。这可以通过 git hooks (如 husky + lint-staged) 自动完成（如果项目已配置）。
+- **强烈建议在提交代码前运行 `pnpm format` 和 `pnpm lint` 命令**，并修复所有报告的问题，以确保代码风格一致性。这可以通过 git hooks (如 husky + lint-staged) 自动完成（项目已配置）。
 
 ## 提交规范
 

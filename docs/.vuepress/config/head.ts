@@ -17,10 +17,7 @@ export const head: HeadConfig[] = [
   ['meta', { name: 'theme-color', content: '#3eaf7c' }], // 主题色
   ['meta', { name: 'apple-mobile-web-app-capable', content: 'yes' }], // iOS Safari 全屏
   ['meta', { name: 'apple-mobile-web-app-status-bar-style', content: 'black' }], // iOS Safari 状态栏样式
-  [
-    'link',
-    { rel: 'apple-touch-icon', href: '/images/icons/apple-touch-icon.png' },
-  ], // Apple Touch Icon
+  ['link', { rel: 'apple-touch-icon', href: '/images/icons/apple-touch-icon.png' }], // Apple Touch Icon
   [
     'link',
     {

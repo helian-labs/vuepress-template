@@ -9,20 +9,20 @@ VuePress 提供了 Node.js API，允许你以编程方式使用 VuePress。
 ## 基本用法
 
 ```js
-import { createApp } from '@vuepress/core'
+import { createApp } from "@vuepress/core"
 
 const app = createApp({
   // 源目录
-  sourceDir: 'docs',
+  sourceDir: "docs",
   // 目标目录
-  dest: 'dist',
+  dest: "dist",
   // 临时目录
-  temp: '.vuepress/.temp',
+  temp: ".vuepress/.temp",
   // 缓存目录
-  cache: '.vuepress/.cache',
+  cache: ".vuepress/.cache",
   // 开发服务器配置
   dev: {
-    host: 'localhost',
+    host: "localhost",
     port: 8080,
   },
   // 构建配置
@@ -109,9 +109,9 @@ VuePress 的插件系统允许你扩展 VuePress 的功能。
 ### 使用插件
 
 ```js
-import { createApp } from '@vuepress/core'
-import { searchPlugin } from '@vuepress/plugin-search'
-import { pwaPlugin } from '@vuepress/plugin-pwa'
+import { createApp } from "@vuepress/core"
+import { searchPlugin } from "@vuepress/plugin-search"
+import { pwaPlugin } from "@vuepress/plugin-pwa"
 
 const app = createApp({
   // 基本配置
@@ -134,8 +134,8 @@ app.use(
   searchPlugin({
     // 搜索选项
     locales: {
-      '/': {
-        placeholder: '搜索',
+      "/": {
+        placeholder: "搜索",
       },
     },
   })
@@ -149,8 +149,8 @@ VuePress 的主题系统允许你自定义站点的外观和功能。
 ### 使用主题
 
 ```js
-import { createApp } from '@vuepress/core'
-import { defaultTheme } from '@vuepress/theme-default'
+import { createApp } from "@vuepress/core"
+import { defaultTheme } from "@vuepress/theme-default"
 
 const app = createApp({
   // 基本配置

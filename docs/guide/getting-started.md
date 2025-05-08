@@ -63,31 +63,27 @@ VuePress 开发服务器将在 `localhost:8080` 启动。
 VuePress 的配置文件是 `.vuepress/config.js`，下面是一个基本配置示例：
 
 ```js
-import { defaultTheme } from '@vuepress/theme-default'
-import { defineUserConfig } from 'vuepress'
+import { defaultTheme } from "@vuepress/theme-default"
+import { defineUserConfig } from "vuepress"
 
 export default defineUserConfig({
   // 站点配置
-  lang: 'zh-CN',
-  title: '我的文档站点',
-  description: '这是我的第一个 VuePress 站点',
+  lang: "zh-CN",
+  title: "我的文档站点",
+  description: "这是我的第一个 VuePress 站点",
 
   // 主题配置
   theme: defaultTheme({
-    logo: '/images/logo.png',
+    logo: "/images/logo.png",
     navbar: [
-      { text: '首页', link: '/' },
-      { text: '指南', link: '/guide/' },
+      { text: "首页", link: "/" },
+      { text: "指南", link: "/guide/" },
     ],
     sidebar: {
-      '/guide/': [
+      "/guide/": [
         {
-          text: '指南',
-          children: [
-            '/guide/README.md',
-            '/guide/introduction.md',
-            '/guide/getting-started.md',
-          ],
+          text: "指南",
+          children: ["/guide/README.md", "/guide/introduction.md", "/guide/getting-started.md"],
         },
       ],
     },
@@ -111,7 +107,7 @@ VuePress 使用 Markdown 增强语法提供了许多有用的特性。
 ## 代码块
 
 ```js
-console.log('Hello, VuePress!')
+console.log("Hello, VuePress!")
 ```
 ````
 

@@ -1,9 +1,9 @@
 ---
 name: ✨ 功能请求
 about: 提出一个新功能或改进建议
-title: 'feat: [简短描述功能]'
+title: "feat: [简短描述功能]"
 labels: enhancement, needs discussion
-assignees: ''
+assignees: ""
 ---
 
 **⚠️ 请先确认：**

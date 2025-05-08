@@ -21,7 +21,9 @@
     "validate:content": "node scripts/validate-content.js",
     "analyze:build": "node scripts/analyze-build.js",
     "validate": "pnpm validate:content",
-    "analyze": "pnpm analyze:build"
+    "analyze": "pnpm analyze:build",
+    "check:docs": "node scripts/check-docs.js",
+    "prepare": "husky"
   },
   "devDependencies": {
     "@types/node": "^18.19.87",
@@ -40,9 +42,15 @@
     "eslint": "^8.57.1",
     "eslint-config-prettier": "^9.1.0",
     "eslint-define-config": "^2.1.0",
+    "eslint-import-resolver-typescript": "4.3.4",
+    "eslint-plugin-import": "2.31.0",
+    "eslint-plugin-node": "11.1.0",
+    "eslint-plugin-prettier": "5.2.6",
     "eslint-plugin-vue": "^9.33.0",
     "glob": "^10.4.5",
     "gray-matter": "^4.0.3",
+    "husky": "9.1.7",
+    "lint-staged": "15.5.2",
     "markdown-it-attrs": "^4.3.1",
     "markdown-it-footnote": "^3.0.3",
     "prettier": "^3.5.3",
@@ -55,5 +63,14 @@
   "engines": {
     "node": ">=18.0.0",
     "pnpm": ">=8.0.0"
+  },
+  "lint-staged": {
+    "*.{vue,js,jsx,cjs,mjs,ts,tsx,cts,mts}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,css,scss,html,md}": [
+      "prettier --write"
+    ]
   }
 }

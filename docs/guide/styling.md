@@ -130,7 +130,7 @@ VuePress 提供了多种方式来自定义站点的外观和感觉。本模板�
 export default {
   head: [
     // 引入外部 CSS
-    ['link', { rel: 'stylesheet', href: '/styles/custom-font.css' }],
+    ["link", { rel: "stylesheet", href: "/styles/custom-font.css" }],
     // 引入 Font Awesome
     // ['link', { rel: 'stylesheet', href: 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css' }]
   ],

@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 /**
  * 创建新文档页面的辅助脚本
  * 使用方法: npm run docs:new

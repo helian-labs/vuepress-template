@@ -19,8 +19,8 @@ VuePress 内置搜索插件允许用户在文档中快速查找内容：
 ```js
 searchPlugin({
   locales: {
-    '/': {
-      placeholder: '搜索文档',
+    "/": {
+      placeholder: "搜索文档",
     },
   },
   // 其他选项...
@@ -37,9 +37,9 @@ searchPlugin({
 
 ```js
 docsearchPlugin({
-  apiKey: 'YOUR_API_KEY',
-  indexName: 'YOUR_INDEX_NAME',
-  appId: 'YOUR_APP_ID',
+  apiKey: "YOUR_API_KEY",
+  indexName: "YOUR_INDEX_NAME",
+  appId: "YOUR_APP_ID",
   // 其他配置...
 })
 ```
@@ -61,12 +61,12 @@ pwaPlugin({
   skipWaiting: true,
   cachePic: true,
   // 自定义更新提示组件
-  popupComponent: 'PwaPopup',
+  popupComponent: "PwaPopup",
   // Web App 清单
   manifest: {
-    name: '应用名称',
-    short_name: '短名称',
-    theme_color: '#颜色代码',
+    name: "应用名称",
+    short_name: "短名称",
+    theme_color: "#颜色代码",
     icons: [
       // 图标配置
     ],
@@ -92,11 +92,11 @@ pwaPlugin({
 
 <!-- 支持缩放的图片 -->
 
-![图片示例](/images/example.jpg)
+![图片示例](/images/logo.png)
 
 <!-- 禁用缩放的图片 -->
 
-![图片示例](/images/example.jpg){.no-zoom}
+![图片示例](/images/logo.png){.no-zoom}
 ```
 
 ### 图片配置
@@ -106,11 +106,11 @@ pwaPlugin({
 ```js
 mediumZoomPlugin({
   // 选择器
-  selector: ':not(a) > img:not(.no-zoom)',
+  selector: ":not(a) > img:not(.no-zoom)",
   // 缩放选项
   zoomOptions: {
     margin: 16,
-    background: '#fff',
+    background: "#fff",
     scrollOffset: 40,
   },
 })
@@ -126,7 +126,7 @@ mediumZoomPlugin({
 
 ```js
 // 这是第1行
-const hello = 'world'
+const hello = "world"
 // 这是第3行
 ```
 

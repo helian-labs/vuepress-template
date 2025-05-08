@@ -86,9 +86,9 @@ title: 常见问题
 
 如果您遇到的问题未在此列出，您可以：
 
-1. 查阅 [VuePress 官方文档](https://v2.vuepress.vuejs.org/zh/)
+1. 查阅 [VuePress 官方文档](https://v2.vuepress.vuejs.org/)
 2. 在 [GitHub Issues](https://github.com/vuepress/core/issues) 中搜索或提交问题
-3. 参考 [VuePress 示例项目](https://github.com/vuepress/core/tree/main/docs)
+3. 参考 [VuePress 示例项目](https://github.com/vuepress/core/tree/main/packages/docs)
 
 ## 安装问题
 
@@ -145,12 +145,12 @@ pnpm docs:dev --clean-cache
 
 ```js
 // .vuepress/client.js
-import { defineClientConfig } from '@vuepress/client'
-import MyComponent from './components/MyComponent.vue'
+import { defineClientConfig } from "@vuepress/client"
+import MyComponent from "./components/MyComponent.vue"
 
 export default defineClientConfig({
   enhance({ app }) {
-    app.component('MyComponent', MyComponent)
+    app.component("MyComponent", MyComponent)
   },
 })
 ```
@@ -193,7 +193,7 @@ pnpm docs:build --clean-cache
 
 <!-- 使用相对路径 -->
 
-![Logo](../images/logo.png)
+![Logo](/images/logo.png)
 ```
 
 ## 部署问题
@@ -211,7 +211,7 @@ pnpm docs:build --clean-cache
 ```js
 // 正确设置 base
 export default {
-  base: '/your-repo/', // 如果部署到 GitHub Pages 的项目页面
+  base: "/your-repo/", // 如果部署到 GitHub Pages 的项目页面
 }
 ```
 

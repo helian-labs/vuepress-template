@@ -18,19 +18,19 @@ VuePress 站点的配置文件位于 `.vuepress/config.js`，它导出一个 Jav
 以下是一个完整的配置示例：
 
 ```js
-import { defaultTheme } from '@vuepress/theme-default'
-import { defineUserConfig } from 'vuepress'
-import { viteBundler } from '@vuepress/bundler-vite'
+import { defaultTheme } from "@vuepress/theme-default"
+import { defineUserConfig } from "vuepress"
+import { viteBundler } from "@vuepress/bundler-vite"
 
 export default defineUserConfig({
   // 站点配置
-  lang: 'zh-CN',
-  title: 'VuePress 模板',
-  description: '基于 VuePress 的文档站点模板',
+  lang: "zh-CN",
+  title: "VuePress 模板",
+  description: "基于 VuePress 的文档站点模板",
   head: [
-    ['link', { rel: 'icon', href: '/images/logo.png' }],
-    ['meta', { name: 'author', content: 'VuePress 团队' }],
-    ['meta', { name: 'keywords', content: 'vuepress, vue, 文档, 博客' }],
+    ["link", { rel: "icon", href: "/images/logo.png" }],
+    ["meta", { name: "author", content: "VuePress 团队" }],
+    ["meta", { name: "keywords", content: "vuepress, vue, 文档, 博客" }],
   ],
 
   // Vite 打包工具配置
@@ -41,33 +41,25 @@ export default defineUserConfig({
 
   // 主题配置
   theme: defaultTheme({
-    logo: '/images/logo.png',
-    repo: 'https://github.com/yourusername/vuepress-template',
-    docsDir: 'docs',
+    logo: "/images/logo.png",
+    repo: "https://github.com/yourusername/vuepress-template",
+    docsDir: "docs",
     navbar: [
-      { text: '首页', link: '/' },
-      { text: '指南', link: '/guide/' },
-      { text: '配置', link: '/config/' },
+      { text: "首页", link: "/" },
+      { text: "指南", link: "/guide/" },
+      { text: "配置", link: "/config/" },
     ],
     sidebar: {
-      '/guide/': [
+      "/guide/": [
         {
-          text: '指南',
-          children: [
-            '/guide/README.md',
-            '/guide/introduction.md',
-            '/guide/getting-started.md',
-          ],
+          text: "指南",
+          children: ["/guide/README.md", "/guide/introduction.md", "/guide/getting-started.md"],
         },
       ],
-      '/config/': [
+      "/config/": [
         {
-          text: '配置',
-          children: [
-            '/config/README.md',
-            '/config/basic-config.md',
-            '/config/theme-config.md',
-          ],
+          text: "配置",
+          children: ["/config/README.md", "/config/basic-config.md", "/config/theme-config.md"],
         },
       ],
     },
@@ -75,8 +67,8 @@ export default defineUserConfig({
 
   // Markdown 配置
   markdown: {
-    anchor: { permalink: true, permalinkSymbol: '#' },
-    links: { externalAttrs: { target: '_blank', rel: 'noopener noreferrer' } },
+    anchor: { permalink: true, permalinkSymbol: "#" },
+    links: { externalAttrs: { target: "_blank", rel: "noopener noreferrer" } },
     toc: { includeLevel: [1, 2, 3] },
   },
 })

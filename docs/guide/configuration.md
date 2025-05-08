@@ -12,28 +12,28 @@ VuePress 站点的导航栏和侧边栏主要通过 `.vuepress/config.js` 文件
 
 ```js
 // .vuepress/config.js
-import { defaultTheme } from '@vuepress/theme-default'
+import { defaultTheme } from "@vuepress/theme-default"
 
 export default {
   theme: defaultTheme({
     navbar: [
       // 简单的链接项
-      { text: '首页', link: '/' },
+      { text: "首页", link: "/" },
 
       // 指向指南目录的链接项
-      { text: '指南', link: '/guide/' },
+      { text: "指南", link: "/guide/" },
 
       // 嵌套的下拉菜单
       {
-        text: 'API文档',
+        text: "API文档",
         children: [
-          { text: 'API V1', link: '/api/v1/' },
-          { text: 'API V2', link: '/api/v2/' },
+          { text: "API V1", link: "/api/v1/" },
+          { text: "API V2", link: "/api/v2/" },
           {
-            text: '相关链接',
+            text: "相关链接",
             children: [
-              { text: 'GitHub', link: 'https://github.com' },
-              { text: 'VuePress', link: 'https://v2.vuepress.vuejs.org/' },
+              { text: "GitHub", link: "https://github.com" },
+              { text: "VuePress", link: "https://v2.vuepress.vuejs.org/" },
             ],
           },
         ],
@@ -41,24 +41,24 @@ export default {
 
       // 使用分组的嵌套下拉菜单
       {
-        text: '配置项',
+        text: "配置项",
         children: [
           {
-            text: '基础配置',
-            children: ['/config/basic.md', '/config/theme.md'],
+            text: "基础配置",
+            children: ["/config/basic.md", "/config/theme.md"],
           },
           {
-            text: '高级配置',
-            children: ['/config/advanced.md'],
+            text: "高级配置",
+            children: ["/config/advanced.md"],
           },
         ],
       },
 
       // 外部链接
       {
-        text: '模板仓库',
-        link: 'https://github.com/vuepress/vuepress-next',
-        target: '_blank',
+        text: "模板仓库",
+        link: "https://github.com/vuepress/vuepress-next",
+        target: "_blank",
       },
     ],
   }),
@@ -90,9 +90,9 @@ export default {
   theme: defaultTheme({
     sidebar: [
       // 侧边栏项
-      '/guide/README.md',
-      '/guide/getting-started.md',
-      '/guide/configuration.md',
+      "/guide/README.md",
+      "/guide/getting-started.md",
+      "/guide/configuration.md",
     ],
   }),
 }
@@ -108,40 +108,36 @@ export default {
   theme: defaultTheme({
     sidebar: {
       // /guide/ 路径下的侧边栏
-      '/guide/': [
+      "/guide/": [
         // 简单链接
-        '/guide/README.md',
+        "/guide/README.md",
 
         // 分组
         {
-          text: '基础',
+          text: "基础",
           collapsible: true, // 是否可折叠
-          children: ['/guide/getting-started.md', '/guide/configuration.md'],
+          children: ["/guide/getting-started.md", "/guide/configuration.md"],
         },
         {
-          text: '进阶',
+          text: "进阶",
           collapsible: false,
-          children: [
-            '/guide/adding-content.md',
-            '/guide/components.md',
-            '/guide/styling.md',
-          ],
+          children: ["/guide/adding-content.md", "/guide/components.md", "/guide/styling.md"],
         },
       ],
 
       // /api/ 路径下的侧边栏
-      '/api/': [
+      "/api/": [
         {
-          text: 'API 文档',
-          children: ['/api/v1/README.md', '/api/v2/README.md'],
+          text: "API 文档",
+          children: ["/api/v1/README.md", "/api/v2/README.md"],
         },
       ],
 
       // fallback: 如果其他路径都没有匹配，则使用根路径的侧边栏
-      '/': [
-        '', // README.md
-        'contact.md',
-        'about.md',
+      "/": [
+        "", // README.md
+        "contact.md",
+        "about.md",
       ],
     },
   }),
@@ -171,7 +167,7 @@ export default {
     // sidebar: 'auto', // 不推荐，通常需要更精细的控制
     // 或者为特定路径启用
     sidebar: {
-      '/reference/': 'auto',
+      "/reference/": "auto",
     },
   }),
 }

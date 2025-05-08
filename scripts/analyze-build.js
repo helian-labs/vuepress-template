@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 /**
  * VuePress构建分析脚本
  *
@@ -10,18 +8,16 @@
  * - 发现可能的性能问题
  */
 
+const { execSync } = require('child_process')
 const fs = require('fs')
 const path = require('path')
-const chalk = require('chalk')
 const zlib = require('zlib')
-const { execSync } = require('child_process')
+
+const chalk = require('chalk')
 
 // 配置
 const DIST_DIR = path.join(process.cwd(), 'docs/.vuepress/dist')
-const OUTPUT_REPORT = path.join(
-  process.cwd(),
-  'docs/.vuepress/dist/build-report.json'
-)
+const OUTPUT_REPORT = path.join(process.cwd(), 'docs/.vuepress/dist/build-report.json')
 const SIZE_THRESHOLD = {
   js: 250 * 1024, // 250KB
   css: 50 * 1024, // 50KB
@@ -124,11 +120,7 @@ async function analyze() {
   }
 
   fs.writeFileSync(OUTPUT_REPORT, JSON.stringify(report, null, 2))
-  console.log(
-    chalk.green(
-      `\n分析报告已保存到: ${path.relative(process.cwd(), OUTPUT_REPORT)}`
-    )
-  )
+  console.log(chalk.green(`\n分析报告已保存到: ${path.relative(process.cwd(), OUTPUT_REPORT)}`))
 
   // 提供优化建议
   provideOptimizationTips(report)
@@ -217,9 +209,7 @@ function provideOptimizationTips(report) {
   }
 
   // 检查大图片
-  if (
-    report.assets.images.filter(f => f.size > SIZE_THRESHOLD.image).length > 0
-  ) {
+  if (report.assets.images.filter(f => f.size > SIZE_THRESHOLD.image).length > 0) {
     console.log('- 优化大型图片，考虑使用WebP格式或适当压缩')
   }
 

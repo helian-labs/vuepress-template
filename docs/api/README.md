@@ -22,25 +22,25 @@ VuePress 提供了一系列客户端 API，可以用于在页面中编写 Vue �
 
 ```js
 // 获取当前页面
-import { usePageData, usePageFrontmatter } from '@vuepress/client'
+import { usePageData, usePageFrontmatter } from "@vuepress/client"
 
 const page = usePageData()
 const frontmatter = usePageFrontmatter()
 
 // 网站配置
-import { useSiteData, useSiteLocaleData } from '@vuepress/client'
+import { useSiteData, useSiteLocaleData } from "@vuepress/client"
 
 const site = useSiteData()
 const siteLocale = useSiteLocaleData()
 
 // 主题配置
-import { useThemeData, useThemeLocaleData } from '@vuepress/client'
+import { useThemeData, useThemeLocaleData } from "@vuepress/client"
 
 const theme = useThemeData()
 const themeLocale = useThemeLocaleData()
 
 // 路由
-import { useRoute, useRouter } from 'vue-router'
+import { useRoute, useRouter } from "vue-router"
 
 const route = useRoute()
 const router = useRouter()
@@ -51,7 +51,7 @@ const router = useRouter()
 VuePress 提供了 Node.js API，可以用于编程式地构建站点：
 
 ```js
-import { createVuePress } from 'vuepress'
+import { createVuePress } from "vuepress"
 
 const vuepress = createVuePress({
   // 传入 CLI 配置
@@ -71,10 +71,10 @@ await vuepress.build()
 
 ```js
 // 创建插件
-import { createPlugin } from 'vuepress'
+import { createPlugin } from "vuepress"
 
 const myPlugin = createPlugin({
-  name: 'vuepress-plugin-my-plugin',
+  name: "vuepress-plugin-my-plugin",
 
   // 各种 Hook
   extendsPageOptions: (options, app) => {
@@ -87,14 +87,14 @@ const myPlugin = createPlugin({
     md.use(/* ... */)
   },
 
-  clientConfigFile: path.resolve(__dirname, './client.js'),
+  clientConfigFile: path.resolve(__dirname, "./client.js"),
 })
 ```
 
 使用插件：
 
 ```js
-import myPlugin from 'vuepress-plugin-my-plugin'
+import myPlugin from "vuepress-plugin-my-plugin"
 
 export default {
   plugins: [
@@ -146,10 +146,10 @@ export default {
 
 ```js
 // 创建主题
-import { createTheme } from 'vuepress'
+import { createTheme } from "vuepress"
 
 const myTheme = createTheme({
-  name: 'vuepress-theme-my-theme',
+  name: "vuepress-theme-my-theme",
 
   // 继承自默认主题
   extends: defaultTheme({
@@ -158,8 +158,8 @@ const myTheme = createTheme({
 
   // 主题设置
   layouts: {
-    Layout: path.resolve(__dirname, 'layouts/Layout.vue'),
-    404: path.resolve(__dirname, 'layouts/404.vue'),
+    Layout: path.resolve(__dirname, "layouts/Layout.vue"),
+    404: path.resolve(__dirname, "layouts/404.vue"),
   },
 
   // 主题可以像插件一样使用 Hook
@@ -172,7 +172,7 @@ const myTheme = createTheme({
 使用主题：
 
 ```js
-import myTheme from 'vuepress-theme-my-theme'
+import myTheme from "vuepress-theme-my-theme"
 
 export default {
   theme: myTheme({

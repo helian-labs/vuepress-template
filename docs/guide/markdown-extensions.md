@@ -110,9 +110,9 @@ yarn add vuepress@next
 // ... 其他代码 ...
 // #region config-snippet
 export default defineUserConfig({
-  lang: 'zh-CN',
-  title: 'VuePress 模板',
-  description: '基于 VuePress 的现代化文档模板',
+  lang: "zh-CN",
+  title: "VuePress 模板",
+  description: "基于 VuePress 的现代化文档模板",
 })
 // #endregion config-snippet
 // ... 其他代码 ...
