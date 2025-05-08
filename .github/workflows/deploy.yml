@@ -3,7 +3,7 @@ name: Deploy Docs to GitHub Pages
 on:
   push:
     branches:
-      - main # 或者你的主分支名
+      - main
 
 # 设置 GITHUB_TOKEN 的权限，以便部署到 GitHub Pages
 permissions:
@@ -29,12 +29,12 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@v3
         with:
-          version: 8 # 确保与 CI 步骤一致
+          version: 10 # 确保与 CI 步骤一致
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20' # 确保与 CI 步骤一致
+          node-version: '22' # 确保与 CI 步骤一致
           cache: 'pnpm'
 
       - name: Install dependencies
