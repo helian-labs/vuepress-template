@@ -8,7 +8,7 @@ function checkFormat() {
   try {
     execSync('pnpm format', { stdio: 'inherit' })
     console.log(chalk.green('✓ Document format check passed'))
-  } catch (error) {
+  } catch (_error) {
     console.error(chalk.red('✗ Document format check failed'))
     process.exit(1)
   }
@@ -20,7 +20,7 @@ function checkLinks() {
   try {
     execSync('pnpm validate:content', { stdio: 'inherit' })
     console.log(chalk.green('✓ Document links check passed'))
-  } catch (error) {
+  } catch (_error) {
     console.error(chalk.red('✗ Document links check failed'))
     process.exit(1)
   }
@@ -32,7 +32,7 @@ function checkBuild() {
   try {
     execSync('pnpm docs:build', { stdio: 'inherit' })
     console.log(chalk.green('✓ Document build check passed'))
-  } catch (error) {
+  } catch (_error) {
     console.error(chalk.red('✗ Document build check failed'))
     process.exit(1)
   }

@@ -200,6 +200,7 @@ module.exports = defineConfig({
       // 这是因为 .eslintrc.cjs 是 CommonJS 模块。
       files: ['.eslintrc.cjs'],
       rules: {
+        '@typescript-eslint/no-require-imports': 'off',
         '@typescript-eslint/no-var-requires': 'off',
         'node/no-unpublished-require': 'off', // 允许 require devDependencies (如 eslint-define-config)。
       },

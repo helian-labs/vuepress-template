@@ -8,12 +8,12 @@
  * - 发现可能的性能问题
  */
 
-const { execSync } = require('child_process')
-const fs = require('fs')
-const path = require('path')
-const zlib = require('zlib')
+import { execSync } from 'child_process'
+import fs from 'fs'
+import path from 'path'
+import zlib from 'zlib'
 
-const chalk = require('chalk')
+import chalk from 'chalk'
 
 // 配置
 const DIST_DIR = path.join(process.cwd(), 'docs/.vuepress/dist')
