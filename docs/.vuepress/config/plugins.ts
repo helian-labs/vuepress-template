@@ -1,5 +1,5 @@
 import type { PluginConfig } from 'vuepress'
-import { getDirname, path } from '@vuepress/utils'
+import { getDirname, path } from 'vuepress/utils'
 import { registerComponentsPlugin } from '@vuepress/plugin-register-components'
 import { mediumZoomPlugin } from '@vuepress/plugin-medium-zoom'
 import { pwaPlugin } from '@vuepress/plugin-pwa'

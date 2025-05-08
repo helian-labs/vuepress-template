@@ -6,6 +6,7 @@
  * - 资源大小分析
  * - 构建时间分析
  * - 发现可能的性能问题
+ * - 性能评分和建议
  */
 
 import { execSync } from 'child_process'
@@ -25,6 +26,30 @@ const SIZE_THRESHOLD = {
   image: 1000 * 1024, // 1MB
 }
 
+// 性能评分标准
+const PERFORMANCE_SCORES = {
+  totalSize: {
+    excellent: 2 * 1024 * 1024, // 2MB
+    good: 5 * 1024 * 1024, // 5MB
+    poor: 10 * 1024 * 1024, // 10MB
+  },
+  compressionRatio: {
+    excellent: 0.3, // 30%
+    good: 0.5, // 50%
+    poor: 0.7, // 70%
+  },
+  jsFiles: {
+    excellent: 5,
+    good: 10,
+    poor: 15,
+  },
+  cssFiles: {
+    excellent: 3,
+    good: 5,
+    poor: 10,
+  },
+}
+
 // 统计数据
 const stats = {
   startTime: Date.now(),
@@ -37,6 +62,10 @@ const stats = {
     js: [],
     css: [],
     images: [],
+  },
+  performance: {
+    score: 0,
+    metrics: {},
   },
 }
 
@@ -59,6 +88,9 @@ async function analyze() {
   // 计算总结果
   const buildTime = (Date.now() - stats.startTime) / 1000
 
+  // 计算性能评分
+  calculatePerformanceScore()
+
   // 输出分析结果
   console.log(chalk.green('\n=== 构建分析报告 ==='))
   console.log(`构建时间: ${buildTime.toFixed(2)}秒`)
@@ -66,6 +98,7 @@ async function analyze() {
   console.log(
     `总大小: ${formatSize(stats.totalSize)} (压缩后: ${formatSize(stats.compressedSize)})`
   )
+  console.log(`性能评分: ${stats.performance.score}/100`)
 
   // 按类型显示
   console.log(chalk.cyan('\n文件类型分布:'))
@@ -117,6 +150,7 @@ async function analyze() {
     fileTypes: stats.fileTypes,
     largeFiles: stats.largeFiles,
     assets: stats.assets,
+    performance: stats.performance,
   }
 
   fs.writeFileSync(OUTPUT_REPORT, JSON.stringify(report, null, 2))
@@ -124,6 +158,75 @@ async function analyze() {
 
   // 提供优化建议
   provideOptimizationTips(report)
+}
+
+// 计算性能评分
+function calculatePerformanceScore() {
+  const metrics = stats.performance.metrics
+  let totalScore = 0
+  const weights = {
+    totalSize: 0.3,
+    compressionRatio: 0.3,
+    jsFiles: 0.2,
+    cssFiles: 0.2,
+  }
+
+  // 总大小评分
+  const totalSize = stats.totalSize
+  if (totalSize <= PERFORMANCE_SCORES.totalSize.excellent) {
+    metrics.totalSize = { score: 100, level: 'excellent' }
+  } else if (totalSize <= PERFORMANCE_SCORES.totalSize.good) {
+    metrics.totalSize = { score: 80, level: 'good' }
+  } else if (totalSize <= PERFORMANCE_SCORES.totalSize.poor) {
+    metrics.totalSize = { score: 60, level: 'poor' }
+  } else {
+    metrics.totalSize = { score: 40, level: 'critical' }
+  }
+
+  // 压缩比评分
+  const compressionRatio = stats.compressedSize / stats.totalSize
+  if (compressionRatio <= PERFORMANCE_SCORES.compressionRatio.excellent) {
+    metrics.compressionRatio = { score: 100, level: 'excellent' }
+  } else if (compressionRatio <= PERFORMANCE_SCORES.compressionRatio.good) {
+    metrics.compressionRatio = { score: 80, level: 'good' }
+  } else if (compressionRatio <= PERFORMANCE_SCORES.compressionRatio.poor) {
+    metrics.compressionRatio = { score: 60, level: 'poor' }
+  } else {
+    metrics.compressionRatio = { score: 40, level: 'critical' }
+  }
+
+  // JS文件数量评分
+  const jsFiles = stats.assets.js.length
+  if (jsFiles <= PERFORMANCE_SCORES.jsFiles.excellent) {
+    metrics.jsFiles = { score: 100, level: 'excellent' }
+  } else if (jsFiles <= PERFORMANCE_SCORES.jsFiles.good) {
+    metrics.jsFiles = { score: 80, level: 'good' }
+  } else if (jsFiles <= PERFORMANCE_SCORES.jsFiles.poor) {
+    metrics.jsFiles = { score: 60, level: 'poor' }
+  } else {
+    metrics.jsFiles = { score: 40, level: 'critical' }
+  }
+
+  // CSS文件数量评分
+  const cssFiles = stats.assets.css.length
+  if (cssFiles <= PERFORMANCE_SCORES.cssFiles.excellent) {
+    metrics.cssFiles = { score: 100, level: 'excellent' }
+  } else if (cssFiles <= PERFORMANCE_SCORES.cssFiles.good) {
+    metrics.cssFiles = { score: 80, level: 'good' }
+  } else if (cssFiles <= PERFORMANCE_SCORES.cssFiles.poor) {
+    metrics.cssFiles = { score: 60, level: 'poor' }
+  } else {
+    metrics.cssFiles = { score: 40, level: 'critical' }
+  }
+
+  // 计算总分
+  totalScore =
+    metrics.totalSize.score * weights.totalSize +
+    metrics.compressionRatio.score * weights.compressionRatio +
+    metrics.jsFiles.score * weights.jsFiles +
+    metrics.cssFiles.score * weights.cssFiles
+
+  stats.performance.score = Math.round(totalScore)
 }
 
 // 遍历目录
@@ -203,32 +306,68 @@ function formatSize(bytes) {
 function provideOptimizationTips(report) {
   console.log(chalk.cyan('\n优化建议:'))
 
+  // 检查性能评分
+  if (report.performance.score < 60) {
+    console.log(chalk.red('\n性能评分较低，需要重点关注以下问题:'))
+  }
+
   // 检查大JS文件
   if (report.assets.js.filter(f => f.size > SIZE_THRESHOLD.js).length > 0) {
     console.log('- 考虑拆分大型JS文件，使用代码分割或懒加载')
+    console.log('  - 使用动态导入: import()')
+    console.log('  - 配置路由级别的代码分割')
+    console.log('  - 使用 webpack/vite 的 splitChunks 优化')
   }
 
   // 检查大图片
   if (report.assets.images.filter(f => f.size > SIZE_THRESHOLD.image).length > 0) {
-    console.log('- 优化大型图片，考虑使用WebP格式或适当压缩')
+    console.log('- 优化大型图片:')
+    console.log('  - 使用 WebP 格式替代 JPG/PNG')
+    console.log('  - 使用适当的图片压缩工具')
+    console.log('  - 考虑使用响应式图片')
+    console.log('  - 实现图片懒加载')
   }
 
   // 检查资源总大小
-  if (report.totalSize > 5 * 1024 * 1024) {
-    // 5MB
-    console.log('- 网站总大小超过5MB，考虑优化资源减小加载时间')
+  if (report.totalSize > PERFORMANCE_SCORES.totalSize.poor) {
+    console.log('- 网站总大小过大:')
+    console.log('  - 移除未使用的依赖')
+    console.log('  - 优化第三方库的引入')
+    console.log('  - 使用 tree-shaking 减少打包体积')
   }
 
   // 检查压缩比
   const compressionRatio = report.compressedSize / report.totalSize
-  if (compressionRatio > 0.8) {
-    console.log('- 压缩效果不佳，考虑优化资源使其更易压缩')
+  if (compressionRatio > PERFORMANCE_SCORES.compressionRatio.poor) {
+    console.log('- 压缩效果不佳:')
+    console.log('  - 优化代码结构使其更易压缩')
+    console.log('  - 移除重复代码')
+    console.log('  - 使用更高效的压缩算法')
   }
 
   // 检查CSS文件数量
-  if (report.assets.css.length > 10) {
-    console.log('- CSS文件过多，考虑合并CSS减少HTTP请求')
+  if (report.assets.css.length > PERFORMANCE_SCORES.cssFiles.poor) {
+    console.log('- CSS文件过多:')
+    console.log('  - 合并CSS文件减少HTTP请求')
+    console.log('  - 使用CSS模块化方案')
+    console.log('  - 移除未使用的CSS')
   }
+
+  // 检查JS文件数量
+  if (report.assets.js.length > PERFORMANCE_SCORES.jsFiles.poor) {
+    console.log('- JS文件过多:')
+    console.log('  - 合并小型JS文件')
+    console.log('  - 使用代码分割')
+    console.log('  - 优化模块导入')
+  }
+
+  // 提供性能优化建议
+  console.log(chalk.cyan('\n性能优化建议:'))
+  console.log('- 启用 HTTP/2')
+  console.log('- 配置适当的缓存策略')
+  console.log('- 使用 CDN 加速静态资源')
+  console.log('- 实现资源预加载')
+  console.log('- 优化关键渲染路径')
 }
 
 // 运行分析

@@ -1,68 +1,114 @@
 #!/usr/bin/env sh
 
-# 确保脚本抛出遇到的错误
+# 设置错误处理
 set -e
 
+# 颜色输出
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+NC='\033[0m'
+
+# 日志函数
+log() {
+  echo -e "${GREEN}[INFO]${NC} $1"
+}
+
+warn() {
+  echo -e "${YELLOW}[WARN]${NC} $1"
+}
+
+error() {
+  echo -e "${RED}[ERROR]${NC} $1"
+  exit 1
+}
+
+# 清理函数
+cleanup() {
+  if [ -d "docs/.vuepress/dist" ]; then
+    log "清理构建目录..."
+    rm -rf docs/.vuepress/dist
+  fi
+}
+
+# 注册清理函数
+trap cleanup EXIT
+
+# 检查必要的命令
+check_commands() {
+  log "检查必要的命令..."
+  for cmd in node npm git; do
+    if ! command -v $cmd &> /dev/null; then
+      error "$cmd 未安装，请先安装 $cmd"
+    fi
+  done
+}
+
 # 读取 package.json 获取仓库信息
-REPO_URL=$(node -e "try { const pkg = require('./package.json'); console.log(pkg.repository && pkg.repository.url || ''); } catch(e) { console.log(''); }")
-REPO_NAME=$(echo $REPO_URL | sed -n 's/.*[\/:]\\([^\\/]*\/[^\\/\.]*\\).*/\\1/p')
+get_repo_info() {
+  log "读取仓库信息..."
+  REPO_URL=$(node -e "try { const pkg = require('./package.json'); console.log(pkg.repository && pkg.repository.url || ''); } catch(e) { console.log(''); }")
+  REPO_NAME=$(echo $REPO_URL | sed -n 's/.*[\/:]\([^\/]*\/[^\/\.]*\).*/\1/p')
 
-# 如果未找到仓库信息，提示用户设置
-if [ -z "$REPO_NAME" ]; then
-  echo "警告: 未在 package.json 中找到有效的仓库信息。"
-  echo "请在使用此部署脚本前，在 package.json 的 repository.url 中设置您的 GitHub 仓库地址。"
-  echo "或者取消注释并修改此脚本中的 DEPLOY_REPO 变量。"
+  if [ -z "$REPO_NAME" ]; then
+    warn "未在 package.json 中找到有效的仓库信息"
+    warn "请在使用此部署脚本前，在 package.json 的 repository.url 中设置您的 GitHub 仓库地址"
+    warn "或者取消注释并修改此脚本中的 DEPLOY_REPO 变量"
+    # DEPLOY_REPO=username/repo
+  fi
+}
 
-  # 用户可以在这里设置固定的部署仓库
-  # DEPLOY_REPO=username/repo
-fi
-
-# 生成静态文件
-echo "生成静态网站文件..."
-npm run docs:build
-
-# 进入生成的文件夹
-cd docs/.vuepress/dist
-
-# 如果是发布到自定义域名
-if [ -n "$CUSTOM_DOMAIN" ]; then
-  echo "$CUSTOM_DOMAIN" > CNAME
-fi
-
-# 初始化 git 仓库并提交更改
-echo "准备部署到 GitHub Pages..."
-git init
-git add -A
-git commit -m 'deploy: 更新文档站点'
+# 构建文档
+build_docs() {
+  log "开始构建文档..."
+  if ! npm run docs:build; then
+    error "文档构建失败"
+  fi
+}
 
 # 部署到 GitHub Pages
-if [ -n "$REPO_NAME" ]; then
-  # 如果有设置仓库信息，使用它
-  echo "正在部署到 https://github.com/$REPO_NAME..."
+deploy_to_github() {
+  log "准备部署到 GitHub Pages..."
+  cd docs/.vuepress/dist
 
-  # 判断是部署到 username.github.io 还是普通仓库
-  if [[ "$REPO_NAME" =~ [^/]*/[^/]*\.github\.io ]]; then
-    # 部署到 username.github.io
-    git push -f git@github.com:$REPO_NAME.git main
-  else
-    # 部署到普通仓库的 gh-pages 分支
-    git push -f git@github.com:$REPO_NAME.git main:gh-pages
+  # 如果是发布到自定义域名
+  if [ -n "$CUSTOM_DOMAIN" ]; then
+    log "设置自定义域名: $CUSTOM_DOMAIN"
+    echo "$CUSTOM_DOMAIN" > CNAME
   fi
-elif [ -n "$DEPLOY_REPO" ]; then
-  # 使用手动设置的仓库
-  echo "正在部署到 https://github.com/$DEPLOY_REPO..."
-  git push -f git@github.com:$DEPLOY_REPO.git main:gh-pages
-else
-  # 如果没有设置仓库信息，提示用户手动设置
-  echo "未找到部署仓库信息，请手动设置以下命令中的仓库地址："
-  echo "  git push -f git@github.com:<USERNAME>/<REPO>.git main:gh-pages"
-  echo "或在 package.json 中设置 repository.url 字段后重新运行此脚本。"
 
-  # 退出而不实际执行部署
-  exit 1
-fi
+  # 初始化 git 仓库并提交更改
+  git init
+  git add -A
+  git commit -m 'deploy: 更新文档站点'
 
-# 回到原目录
-cd -
+  if [ -n "$REPO_NAME" ]; then
+    log "正在部署到 https://github.com/$REPO_NAME..."
+    if [[ "$REPO_NAME" =~ [^/]*/[^/]*\.github\.io ]]; then
+      git push -f git@github.com:$REPO_NAME.git main
+    else
+      git push -f git@github.com:$REPO_NAME.git main:gh-pages
+    fi
+  elif [ -n "$DEPLOY_REPO" ]; then
+    log "正在部署到 https://github.com/$DEPLOY_REPO..."
+    git push -f git@github.com:$DEPLOY_REPO.git main:gh-pages
+  else
+    error "未找到部署仓库信息，请手动设置以下命令中的仓库地址：
+  git push -f git@github.com:<USERNAME>/<REPO>.git main:gh-pages
+或在 package.json 中设置 repository.url 字段后重新运行此脚本"
+  fi
 
-echo "部署完成！"
+  cd -
+}
+
+# 主函数
+main() {
+  check_commands
+  get_repo_info
+  build_docs
+  deploy_to_github
+  log "部署完成！"
+}
+
+# 执行主函数
+main

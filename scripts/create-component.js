@@ -310,7 +310,7 @@ async function createNewComponent() {
 在 config.js 文件中找到 plugins 配置，添加或更新 register-components 插件:
 
 import { registerComponentsPlugin } from '@vuepress/plugin-register-components'
-import { getDirname, path } from '@vuepress/utils'
+import { getDirname, path } from 'vuepress/utils'
 
 const __dirname = getDirname(import.meta.url)
 

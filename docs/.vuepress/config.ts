@@ -1,7 +1,7 @@
 import { defaultTheme } from '@vuepress/theme-default'
 import { defineUserConfig } from 'vuepress'
 import { viteBundler } from '@vuepress/bundler-vite'
-import { getDirname, path } from '@vuepress/utils'
+import { getDirname, path } from 'vuepress/utils'
 import fs from 'fs'
 
 // 导入拆分的配置模块
