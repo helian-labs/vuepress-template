@@ -1,5 +1,5 @@
 // import type { NavGroup } from '@vuepress/theme-default' // 类型推断困难，暂时注释
-import { getDirname, path } from '@vuepress/utils'
+import { getDirname, path } from 'vuepress/utils'
 import fs from 'fs'
 
 const __dirname = getDirname(import.meta.url)

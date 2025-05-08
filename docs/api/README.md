@@ -22,19 +22,19 @@ VuePress 提供了一系列客户端 API，可以用于在页面中编写 Vue �
 
 ```js
 // 获取当前页面
-import { usePageData, usePageFrontmatter } from "@vuepress/client"
+import { usePageData, usePageFrontmatter } from "vuepress/client"
 
 const page = usePageData()
 const frontmatter = usePageFrontmatter()
 
 // 网站配置
-import { useSiteData, useSiteLocaleData } from "@vuepress/client"
+import { useSiteData, useSiteLocaleData } from "vuepress/client"
 
 const site = useSiteData()
 const siteLocale = useSiteLocaleData()
 
 // 主题配置
-import { useThemeData, useThemeLocaleData } from "@vuepress/client"
+import { useThemeData, useThemeLocaleData } from "vuepress/client"
 
 const theme = useThemeData()
 const themeLocale = useThemeLocaleData()

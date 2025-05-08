@@ -1,7 +1,7 @@
 import { defaultTheme } from '@vuepress/theme-default'
 import { defineUserConfig } from 'vuepress'
 import { viteBundler } from '@vuepress/bundler-vite'
-import { getDirname, path } from '@vuepress/utils'
+import { getDirname, path } from 'vuepress/utils'
 import { docsearchPlugin } from '@vuepress/plugin-docsearch'
 import { pwaPlugin } from '@vuepress/plugin-pwa'
 import { mediumZoomPlugin } from '@vuepress/plugin-medium-zoom'

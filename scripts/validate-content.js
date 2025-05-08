@@ -13,19 +13,34 @@
 import fs from 'fs'
 import http from 'http'
 import https from 'https'
-import path, { dirname } from 'path'
-import { URL, fileURLToPath } from 'url'
+import path from 'path'
+import { URL } from 'url'
 
 import chalk from 'chalk'
 import { glob } from 'glob'
 import matter from 'gray-matter'
 
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = dirname(__filename)
+// 配置常量
+const CONFIG = {
+  docsDir: path.join(process.cwd(), 'docs'),
+  maxConcurrentRequests: 5,
+  requestTimeout: 5000,
+  ignoredPatterns: ['node_modules/**', '.vuepress/**'],
+}
 
-const DOCS_DIR = path.join(process.cwd(), 'docs')
-const errors = []
-const warnings = []
+// 性能监控
+const stats = {
+  startTime: Date.now(),
+  filesChecked: 0,
+  linksChecked: 0,
+  errors: [],
+  warnings: [],
+}
+
+// 缓存
+const checkedUrls = new Map()
+let activeRequests = 0
+const urlQueue = []
 
 // 常见拼写错误和修正建议
 const SPELLING_CORRECTIONS = {
@@ -85,75 +100,74 @@ const CHINESE_SPELLING_CORRECTIONS = {
   编译: '编译',
 }
 
-// 最大并发请求数
-const MAX_CONCURRENT_REQUESTS = 5
-// 链接检查超时时间（毫秒）
-const REQUEST_TIMEOUT = 5000
-// 已检查过的链接缓存
-const checkedUrls = new Map()
-// 当前正在检查的链接数
-let activeRequests = 0
-// 待检查的链接队列
-const urlQueue = []
-
 console.log(chalk.blue('开始验证文档内容...'))
 
 // 获取所有的markdown文件
 const markdownFiles = glob.sync('**/*.md', {
-  cwd: DOCS_DIR,
-  ignore: ['node_modules/**', '.vuepress/**'],
+  cwd: CONFIG.docsDir,
+  ignore: CONFIG.ignoredPatterns,
 })
 
 // 主验证函数
 async function validateContent() {
-  // 检查所有markdown文件
-  for (const file of markdownFiles) {
-    const filePath = path.join(DOCS_DIR, file)
-    const relativePath = path.relative(process.cwd(), filePath)
-    const content = fs.readFileSync(filePath, 'utf8')
+  try {
+    // 检查所有markdown文件
+    for (const file of markdownFiles) {
+      stats.filesChecked++
+      const filePath = path.join(CONFIG.docsDir, file)
+      const relativePath = path.relative(process.cwd(), filePath)
+      const content = fs.readFileSync(filePath, 'utf8')
 
-    try {
-      // 检查frontmatter
-      validateFrontmatter(content, relativePath)
+      try {
+        // 检查frontmatter
+        validateFrontmatter(content, relativePath)
 
-      // 检查链接
-      validateLinks(content, relativePath, file)
+        // 检查链接
+        validateLinks(content, relativePath, file)
 
-      // 检查图片
-      validateImages(content, relativePath, file)
+        // 检查图片
+        validateImages(content, relativePath, file)
 
-      // 检查标题
-      validateHeadings(content, relativePath)
+        // 检查标题
+        validateHeadings(content, relativePath)
 
-      // 检查拼写错误
-      validateSpelling(content, relativePath)
-    } catch (error) {
-      errors.push(`${relativePath}: ${error.message}`)
-    }
-  }
-
-  // 验证所有外部链接
-  await validateExternalLinks()
-
-  // 显示结果
-  console.log('\n=== 验证结果 ===')
-
-  if (errors.length === 0 && warnings.length === 0) {
-    console.log(chalk.green('✓ 没有发现问题！'))
-  } else {
-    if (errors.length > 0) {
-      console.log(chalk.red(`\n错误 (${errors.length}):`))
-      errors.forEach(error => console.log(chalk.red(`- ${error}`)))
+        // 检查拼写错误
+        validateSpelling(content, relativePath)
+      } catch (error) {
+        stats.errors.push(`${relativePath}: ${error.message}`)
+      }
     }
 
-    if (warnings.length > 0) {
-      console.log(chalk.yellow(`\n警告 (${warnings.length}):`))
-      warnings.forEach(warning => console.log(chalk.yellow(`- ${warning}`)))
-    }
+    // 验证所有外部链接
+    await validateExternalLinks()
 
-    if (errors.length > 0) {
-      process.exit(1)
+    // 显示结果
+    console.log('\n=== 验证结果 ===')
+    console.log(chalk.blue(`\n性能统计:`))
+    console.log(chalk.blue(`- 检查文件数: ${stats.filesChecked}`))
+    console.log(chalk.blue(`- 检查链接数: ${stats.linksChecked}`))
+    console.log(chalk.blue(`- 总耗时: ${((Date.now() - stats.startTime) / 1000).toFixed(2)}s`))
+
+    if (stats.errors.length === 0 && stats.warnings.length === 0) {
+      console.log(chalk.green('✓ 没有发现问题！'))
+    } else {
+      if (stats.errors.length > 0) {
+        console.log(chalk.red(`\n错误 (${stats.errors.length}):`))
+        stats.errors.forEach(error => console.log(chalk.red(`- ${error}`)))
+      }
+
+      if (stats.warnings.length > 0) {
+        console.log(chalk.yellow(`\n警告 (${stats.warnings.length}):`))
+        stats.warnings.forEach(warning => console.log(chalk.yellow(`- ${warning}`)))
+      }
+
+      if (stats.errors.length > 0) {
+        process.exit(1)
+      }
     }
+  } catch (error) {
+    console.error(chalk.red('验证过程出错:'), error)
+    process.exit(1)
   }
 }
 
@@ -166,15 +180,15 @@ function validateFrontmatter(content, filePath) {
 
     // 检查必须的字段
     if (!data.title) {
-      warnings.push(`${filePath}: 缺少标题 (title) 字段`)
+      stats.warnings.push(`${filePath}: 缺少标题 (title) 字段`)
     }
 
     // 检查日期格式
     if (data.date && isNaN(new Date(data.date).getTime())) {
-      errors.push(`${filePath}: 日期格式无效: ${data.date}`)
+      stats.errors.push(`${filePath}: 日期格式无效: ${data.date}`)
     }
   } catch (error) {
-    errors.push(`${filePath}: Frontmatter 解析错误: ${error.message}`)
+    stats.errors.push(`${filePath}: Frontmatter 解析错误: ${error.message}`)
   }
 }
 
@@ -190,7 +204,7 @@ function validateLinks(content, filePath, relativeMdPath) {
 
     // 检查空链接文本
     if (!linkText.trim()) {
-      warnings.push(`${filePath}: 链接缺少描述文本: ${linkPath}`)
+      stats.warnings.push(`${filePath}: 链接缺少描述文本: ${linkPath}`)
     }
 
     // 处理外部链接
@@ -201,23 +215,23 @@ function validateLinks(content, filePath, relativeMdPath) {
         filePath,
         lineNum: getLineNumber(content, match.index),
       })
-      continue
+      return
     }
 
     // 忽略锚点链接
     if (linkPath.startsWith('#')) {
       validateAnchorLink(content, linkPath, filePath)
-      continue
+      return
     }
 
     // 处理相对路径
     const targetPath =
       linkPath.endsWith('.md') || linkPath.endsWith('.html')
-        ? path.resolve(path.dirname(path.join(DOCS_DIR, relativeMdPath)), linkPath)
+        ? path.resolve(path.dirname(path.join(CONFIG.docsDir, relativeMdPath)), linkPath)
         : null
 
     if (targetPath && !fs.existsSync(targetPath)) {
-      errors.push(`${filePath}: 链接失效: ${linkPath}`)
+      stats.errors.push(`${filePath}: 链接失效: ${linkPath}`)
     }
   }
 }
@@ -237,7 +251,7 @@ function validateAnchorLink(content, anchor, filePath) {
   )
 
   if (!headingRegex.test(content)) {
-    warnings.push(`${filePath}: 可能的无效锚点链接: ${anchor}`)
+    stats.warnings.push(`${filePath}: 可能的无效锚点链接: ${anchor}`)
   }
 }
 
@@ -253,7 +267,7 @@ function validateImages(content, filePath, relativeMdPath) {
 
     // 检查alt文本
     if (!altText) {
-      warnings.push(`${filePath}: 图片缺少alt文本: ${imagePath}`)
+      stats.warnings.push(`${filePath}: 图片缺少alt文本: ${imagePath}`)
     }
 
     // 忽略外部图片
@@ -265,13 +279,16 @@ function validateImages(content, filePath, relativeMdPath) {
         lineNum: getLineNumber(content, match.index),
         isImage: true,
       })
-      continue
+      return
     }
 
     // 检查图片是否存在
-    const targetPath = path.resolve(path.dirname(path.join(DOCS_DIR, relativeMdPath)), imagePath)
+    const targetPath = path.resolve(
+      path.dirname(path.join(CONFIG.docsDir, relativeMdPath)),
+      imagePath
+    )
     if (!fs.existsSync(targetPath)) {
-      errors.push(`${filePath}: 图片不存在: ${imagePath}`)
+      stats.errors.push(`${filePath}: 图片不存在: ${imagePath}`)
     }
   }
 }
@@ -298,7 +315,9 @@ function validateHeadings(content, filePath) {
       if (headings.length > 1) {
         const prevHeading = headings[headings.length - 2]
         if (level > prevHeading.level + 1) {
-          warnings.push(`${filePath}:${i + 1}: 标题级别跳跃: 从 h${prevHeading.level} 到 h${level}`)
+          stats.warnings.push(
+            `${filePath}:${i + 1}: 标题级别跳跃: 从 h${prevHeading.level} 到 h${level}`
+          )
         }
       }
     }
@@ -308,7 +327,7 @@ function validateHeadings(content, filePath) {
   const headingTexts = {}
   headings.forEach(heading => {
     if (headingTexts[heading.text]) {
-      warnings.push(
+      stats.warnings.push(
         `${filePath}: 重复标题 "${heading.text}" 在第 ${headingTexts[heading.text]} 行和第 ${heading.line} 行`
       )
     } else {
@@ -336,7 +355,7 @@ function validateSpelling(content, filePath) {
         const correctTerm = SPELLING_CORRECTIONS[misspelled]
         // 如果已经正确使用了大小写，就不需要警告
         if (!line.includes(correctTerm)) {
-          warnings.push(
+          stats.warnings.push(
             `${filePath}:${lineIndex + 1}: 可能的拼写错误: "${misspelled}" 应为 "${correctTerm}"`
           )
         }
@@ -348,7 +367,7 @@ function validateSpelling(content, filePath) {
       if (line.includes(term)) {
         const suggestion = CHINESE_SPELLING_CORRECTIONS[term]
         if (term !== suggestion && !line.includes(suggestion)) {
-          warnings.push(
+          stats.warnings.push(
             `${filePath}:${lineIndex + 1}: 可能的用词建议: "${term}" 建议使用 "${suggestion}"`
           )
         }
@@ -377,7 +396,7 @@ async function validateExternalLinks() {
       }
 
       // 如果有空闲插槽且队列中还有链接待检查
-      while (activeRequests < MAX_CONCURRENT_REQUESTS && urlQueue.length > 0) {
+      while (activeRequests < CONFIG.maxConcurrentRequests && urlQueue.length > 0) {
         activeRequests++
         const { url, filePath, lineNum, isImage } = urlQueue.shift()
         checkUrl(url, filePath, lineNum, isImage).finally(() => {
@@ -396,12 +415,14 @@ async function validateExternalLinks() {
  * 检查URL是否有效
  */
 async function checkUrl(url, filePath, lineNum, isImage = false) {
+  stats.linksChecked++
+
   // 如果已经检查过这个URL，直接使用缓存结果
   if (checkedUrls.has(url)) {
     const result = checkedUrls.get(url)
     if (!result.valid) {
       const errorMsg = `${filePath}:${lineNum}: ${isImage ? '图片' : '链接'} 访问失败: ${url} (${result.statusCode || result.error})`
-      errors.push(errorMsg)
+      stats.errors.push(errorMsg)
     }
     return
   }
@@ -410,11 +431,11 @@ async function checkUrl(url, filePath, lineNum, isImage = false) {
     const parsedUrl = new URL(url)
     const protocol = parsedUrl.protocol === 'https:' ? https : http
 
-    const result = await new Promise(resolve => {
+    const result = await new Promise((resolve, reject) => {
       const request = protocol.get(
         url,
         {
-          timeout: REQUEST_TIMEOUT,
+          timeout: CONFIG.requestTimeout,
           headers: {
             'User-Agent': 'Mozilla/5.0 VuePress-Link-Checker',
           },
@@ -446,18 +467,12 @@ async function checkUrl(url, filePath, lineNum, isImage = false) {
       )
 
       request.on('error', error => {
-        resolve({
-          valid: false,
-          error: error.message,
-        })
+        reject(error)
       })
 
       request.on('timeout', () => {
         request.destroy()
-        resolve({
-          valid: false,
-          error: '请求超时',
-        })
+        reject(new Error('请求超时'))
       })
     })
 
@@ -467,12 +482,12 @@ async function checkUrl(url, filePath, lineNum, isImage = false) {
     // 如果链接无效，添加错误
     if (!result.valid) {
       const errorMsg = `${filePath}:${lineNum}: ${isImage ? '图片' : '链接'} 访问失败: ${url} (${result.statusCode || result.error})`
-      errors.push(errorMsg)
+      stats.errors.push(errorMsg)
     }
 
     // 如果是重定向，添加警告
     if (result.redirectTo) {
-      warnings.push(
+      stats.warnings.push(
         `${filePath}:${lineNum}: ${isImage ? '图片' : '链接'} 重定向: ${url} -> ${result.redirectTo}`
       )
     }
@@ -483,7 +498,7 @@ async function checkUrl(url, filePath, lineNum, isImage = false) {
       error: error.message,
     })
 
-    errors.push(
+    stats.errors.push(
       `${filePath}:${lineNum}: ${isImage ? '图片' : '链接'} 格式无效: ${url} (${error.message})`
     )
   }

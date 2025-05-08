@@ -17,7 +17,7 @@
 ### Markdown 增强
 
 - [Markdown 扩展](https://v2.vuepress.vuejs.org/zh/guide/markdown.html) - VuePress 中的 Markdown 扩展功能
-- [Markdown 教程](https://commonmark.org/help/)
+- [Markdown 教程](https://commonmark.org/help/) - Markdown 语法指南
 
 ## Vue 3 核心与生态
 
@@ -142,7 +142,7 @@
 ### 开发工具 & 环境
 
 - [VS Code](https://code.visualstudio.com/) - 推荐的代码编辑器
-- [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (或 [Vue Official](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-official)) - VS Code 的 Vue 3 开发核心插件 (Volar 功能更全)
+- [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) - VS Code 的 Vue 3 开发核心插件
 - [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) - 让 TS 识别 `.vue` 导入
 - [ESLint](https://eslint.org/) + [Prettier](https://prettier.io/) - 代码规范和格式化
   - `eslint-plugin-vue`: Vue 相关规则
@@ -155,7 +155,6 @@
 
 - [Markdown All in One](https://marketplace.visualstudio.com/items?itemName=yzhang.markdown-all-in-one) - VS Code Markdown 编辑增强
 - [Markdown Preview Enhanced](https://marketplace.visualstudio.com/items?itemName=shd101wyy.markdown-preview-enhanced) - VS Code 实时预览和扩展功能
-- [Markdown Table Prettifier](https://marketplace.visualstudio.com/items?itemName=darkriszty.markdown-table-prettifier) - 格式化 Markdown 表格
 - [Markdown 表格生成器](https://www.tablesgenerator.com/markdown_tables) - 在线创建 Markdown 表格
 - [Carbon](https://carbon.now.sh/) - 创建漂亮的代码截图
 - [Excalidraw](https://excalidraw.com/) - 创建简洁的流程图和示意图

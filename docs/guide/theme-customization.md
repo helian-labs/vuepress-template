@@ -231,7 +231,7 @@ export default {
 
 ```js
 // docs/.vuepress/clientAppEnhance.js
-import { defineClientAppEnhance } from "@vuepress/client"
+import { defineClientAppEnhance } from "vuepress/client"
 
 export default defineClientAppEnhance(({ app, router, siteData }) => {
   // 在这里添加客户端增强代码
