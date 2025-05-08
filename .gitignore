@@ -5,11 +5,6 @@ node_modules/
 .yarn/
 .yarnrc.yml
 
-# Lock files (handled by .gitattributes)
-# package-lock.json
-# yarn.lock
-# pnpm-lock.yaml
-
 # === Build Output ===
 docs/.vuepress/dist/
 docs/.vuepress/.temp/
