@@ -16,31 +16,44 @@ import path from 'path'
 
 import chalk from 'chalk'
 
-// 配置
-const DOCS_DIR = path.join(process.cwd(), 'docs')
-const IMAGE_DIR = path.join(DOCS_DIR, '.vuepress/public/images')
-const ALLOWED_IMAGE_EXTENSIONS = ['.png', '.jpg', '.jpeg', '.gif', '.svg', '.webp']
-const MAX_IMAGE_SIZE = 1024 * 1024 // 1MB
+// 配置常量
+const CONFIG = {
+  docsDir: path.join(process.cwd(), 'docs'),
+  imageDir: path.join(process.cwd(), 'docs/.vuepress/public/images'),
+  allowedImageExtensions: ['.png', '.jpg', '.jpeg', '.gif', '.svg', '.webp'],
+  maxImageSize: 5 * 1024 * 1024, // 5MB
+  commands: {
+    format: 'pnpm format',
+    validate: 'pnpm validate:content',
+    build: 'pnpm docs:build',
+  },
+}
 
-// 检查结果
-const results = {
-  format: { passed: false, error: null },
-  links: { passed: false, error: null },
-  build: { passed: false, error: null },
-  images: { passed: false, error: null },
-  codeBlocks: { passed: false, error: null },
-  metadata: { passed: false, error: null },
+// 性能监控
+const stats = {
+  startTime: Date.now(),
+  filesChecked: 0,
+  imagesChecked: 0,
+  codeBlocksChecked: 0,
+  results: {
+    format: { passed: false, error: null },
+    links: { passed: false, error: null },
+    build: { passed: false, error: null },
+    images: { passed: false, error: null },
+    codeBlocks: { passed: false, error: null },
+    metadata: { passed: false, error: null },
+  },
 }
 
 // 检查文档格式
 function checkFormat() {
   console.log(chalk.blue('检查文档格式...'))
   try {
-    execSync('pnpm format', { stdio: 'inherit' })
-    results.format.passed = true
+    execSync(CONFIG.commands.format, { stdio: 'inherit' })
+    stats.results.format.passed = true
     console.log(chalk.green('✓ 文档格式检查通过'))
   } catch (error) {
-    results.format.error = error.message
+    stats.results.format.error = error.message
     console.error(chalk.red('✗ 文档格式检查失败'))
     console.error(chalk.red(error.message))
   }
@@ -50,11 +63,11 @@ function checkFormat() {
 function checkLinks() {
   console.log(chalk.blue('检查文档链接...'))
   try {
-    execSync('pnpm validate:content', { stdio: 'inherit' })
-    results.links.passed = true
+    execSync(CONFIG.commands.validate, { stdio: 'inherit' })
+    stats.results.links.passed = true
     console.log(chalk.green('✓ 文档链接检查通过'))
   } catch (error) {
-    results.links.error = error.message
+    stats.results.links.error = error.message
     console.error(chalk.red('✗ 文档链接检查失败'))
     console.error(chalk.red(error.message))
   }
@@ -64,11 +77,11 @@ function checkLinks() {
 function checkBuild() {
   console.log(chalk.blue('检查文档构建...'))
   try {
-    execSync('pnpm docs:build', { stdio: 'inherit' })
-    results.build.passed = true
+    execSync(CONFIG.commands.build, { stdio: 'inherit' })
+    stats.results.build.passed = true
     console.log(chalk.green('✓ 文档构建检查通过'))
   } catch (error) {
-    results.build.error = error.message
+    stats.results.build.error = error.message
     console.error(chalk.red('✗ 文档构建检查失败'))
     console.error(chalk.red(error.message))
   }
@@ -78,39 +91,40 @@ function checkBuild() {
 function checkImages() {
   console.log(chalk.blue('检查文档图片...'))
   try {
-    if (!fs.existsSync(IMAGE_DIR)) {
+    if (!fs.existsSync(CONFIG.imageDir)) {
       throw new Error('图片目录不存在')
     }
 
-    const files = fs.readdirSync(IMAGE_DIR)
+    const files = fs.readdirSync(CONFIG.imageDir)
     let hasError = false
 
     for (const file of files) {
-      const filePath = path.join(IMAGE_DIR, file)
+      stats.imagesChecked++
+      const filePath = path.join(CONFIG.imageDir, file)
       const ext = path.extname(file).toLowerCase()
-      const stats = fs.statSync(filePath)
+      const fileStats = fs.statSync(filePath)
 
       // 检查文件扩展名
-      if (!ALLOWED_IMAGE_EXTENSIONS.includes(ext)) {
+      if (!CONFIG.allowedImageExtensions.includes(ext)) {
         console.error(chalk.yellow(`! 不支持的图片格式: ${file}`))
         hasError = true
       }
 
       // 检查文件大小
-      if (stats.size > MAX_IMAGE_SIZE) {
-        console.error(chalk.yellow(`! 图片过大: ${file} (${formatSize(stats.size)})`))
+      if (fileStats.size > CONFIG.maxImageSize) {
+        console.error(chalk.yellow(`! 图片过大: ${file} (${formatSize(fileStats.size)})`))
         hasError = true
       }
     }
 
     if (!hasError) {
-      results.images.passed = true
+      stats.results.images.passed = true
       console.log(chalk.green('✓ 文档图片检查通过'))
     } else {
       throw new Error('发现图片问题')
     }
   } catch (error) {
-    results.images.error = error.message
+    stats.results.images.error = error.message
     console.error(chalk.red('✗ 文档图片检查失败'))
     console.error(chalk.red(error.message))
   }
@@ -120,7 +134,7 @@ function checkImages() {
 function checkCodeBlocks() {
   console.log(chalk.blue('检查代码块...'))
   try {
-    const files = getAllMarkdownFiles(DOCS_DIR)
+    const files = getAllMarkdownFiles(CONFIG.docsDir)
     let hasError = false
 
     for (const file of files) {
@@ -128,6 +142,7 @@ function checkCodeBlocks() {
       const codeBlocks = content.match(/```[\s\S]*?```/g) || []
 
       for (const block of codeBlocks) {
+        stats.codeBlocksChecked++
         // 检查代码块语言
         if (!block.startsWith('```')) {
           console.error(chalk.yellow(`! 代码块缺少语言标识: ${file}`))
@@ -143,13 +158,13 @@ function checkCodeBlocks() {
     }
 
     if (!hasError) {
-      results.codeBlocks.passed = true
+      stats.results.codeBlocks.passed = true
       console.log(chalk.green('✓ 代码块检查通过'))
     } else {
       throw new Error('发现代码块问题')
     }
   } catch (error) {
-    results.codeBlocks.error = error.message
+    stats.results.codeBlocks.error = error.message
     console.error(chalk.red('✗ 代码块检查失败'))
     console.error(chalk.red(error.message))
   }
@@ -159,10 +174,11 @@ function checkCodeBlocks() {
 function checkMetadata() {
   console.log(chalk.blue('检查文档元数据...'))
   try {
-    const files = getAllMarkdownFiles(DOCS_DIR)
+    const files = getAllMarkdownFiles(CONFIG.docsDir)
     let hasError = false
 
     for (const file of files) {
+      stats.filesChecked++
       const content = fs.readFileSync(file, 'utf-8')
       const frontmatter = content.match(/^---\n([\s\S]*?)\n---/) || []
 
@@ -184,13 +200,13 @@ function checkMetadata() {
     }
 
     if (!hasError) {
-      results.metadata.passed = true
+      stats.results.metadata.passed = true
       console.log(chalk.green('✓ 文档元数据检查通过'))
     } else {
       throw new Error('发现元数据问题')
     }
   } catch (error) {
-    results.metadata.error = error.message
+    stats.results.metadata.error = error.message
     console.error(chalk.red('✗ 文档元数据检查失败'))
     console.error(chalk.red(error.message))
   }
@@ -227,13 +243,18 @@ function formatSize(bytes) {
 // 生成检查报告
 function generateReport() {
   console.log(chalk.cyan('\n=== 文档检查报告 ==='))
+  console.log(chalk.blue(`\n性能统计:`))
+  console.log(chalk.blue(`- 检查文件数: ${stats.filesChecked}`))
+  console.log(chalk.blue(`- 检查图片数: ${stats.imagesChecked}`))
+  console.log(chalk.blue(`- 检查代码块数: ${stats.codeBlocksChecked}`))
+  console.log(chalk.blue(`- 总耗时: ${((Date.now() - stats.startTime) / 1000).toFixed(2)}s`))
 
-  const allPassed = Object.values(results).every(r => r.passed)
+  const allPassed = Object.values(stats.results).every(r => r.passed)
   if (allPassed) {
     console.log(chalk.green('\n所有检查都通过了！'))
   } else {
     console.log(chalk.red('\n发现以下问题：'))
-    Object.entries(results).forEach(([key, result]) => {
+    Object.entries(stats.results).forEach(([key, result]) => {
       if (!result.passed) {
         console.log(chalk.red(`\n${key}:`))
         console.log(chalk.red(result.error))
@@ -244,19 +265,24 @@ function generateReport() {
 
 // 主函数
 function main() {
-  console.log(chalk.yellow('开始文档检查...\n'))
+  try {
+    console.log(chalk.yellow('开始文档检查...\n'))
 
-  checkFormat()
-  checkLinks()
-  checkBuild()
-  checkImages()
-  checkCodeBlocks()
-  checkMetadata()
+    checkFormat()
+    checkLinks()
+    checkBuild()
+    checkImages()
+    checkCodeBlocks()
+    checkMetadata()
 
-  generateReport()
+    generateReport()
 
-  // 如果有任何检查失败，退出码为1
-  if (!Object.values(results).every(r => r.passed)) {
+    // 如果有任何检查失败，退出码为1
+    if (!Object.values(stats.results).every(r => r.passed)) {
+      process.exit(1)
+    }
+  } catch (error) {
+    console.error(chalk.red('检查过程出错:'), error)
     process.exit(1)
   }
 }
